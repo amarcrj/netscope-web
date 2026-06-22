@@ -1,0 +1,594 @@
+/* ----------------------------------------------------
+   NetScope Premium JS Controller - Vanilla JS Redesign
+   ---------------------------------------------------- */
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // --- Global State & Configuration ---
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isCanvasRunning = !isReducedMotion;
+
+  // --- Theme Toggle ---
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+  });
+
+  // --- Mobile Navigation Menu ---
+  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+  const navLinksWrapper = document.querySelector('.nav-links-wrapper');
+  
+  mobileNavToggle.addEventListener('click', () => {
+    const expanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+    mobileNavToggle.setAttribute('aria-expanded', !expanded);
+    mobileNavToggle.classList.toggle('active');
+    navLinksWrapper.classList.toggle('active');
+  });
+
+  // Close nav on clicking links
+  document.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNavToggle.setAttribute('aria-expanded', 'false');
+      mobileNavToggle.classList.remove('active');
+      navLinksWrapper.classList.remove('active');
+    });
+  });
+
+  // --- High-Performance 3D Scrollable Network Background Canvas ---
+  const canvas = document.getElementById('network-canvas');
+  const ctx = canvas.getContext('2d');
+  
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  
+  const nodes = [];
+  const maxNodes = Math.min(65, Math.floor((width * height) / 20000)); // Optimal node density
+  
+  class Node3D {
+    constructor() {
+      this.x = (Math.random() - 0.5) * 850;
+      this.y = (Math.random() - 0.5) * 850;
+      this.z = (Math.random() - 0.5) * 850;
+      this.radius = Math.random() * 2 + 1.5;
+      
+      // Slow drift speeds
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
+      this.vz = (Math.random() - 0.5) * 0.35;
+    }
+    
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.z += this.vz;
+      
+      const bounds = 450;
+      if (Math.abs(this.x) > bounds) this.vx *= -1;
+      if (Math.abs(this.y) > bounds) this.vy *= -1;
+      if (Math.abs(this.z) > bounds) this.vz *= -1;
+    }
+  }
+
+  // Create initial nodes
+  for (let i = 0; i < maxNodes; i++) {
+    nodes.push(new Node3D());
+  }
+
+  let rotationY = 0;
+  let rotationX = 0;
+  let targetRotationY = 0;
+  let targetRotationX = 0;
+  
+  window.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    targetRotationY = scrollPercent * Math.PI * 1.6; 
+    targetRotationX = scrollPercent * Math.PI * 0.5;
+  }, { passive: true });
+
+  function rotateCoordinates(node, angleX, angleY) {
+    const cosX = Math.cos(angleX);
+    const sinX = Math.sin(angleX);
+    let y1 = node.y * cosX - node.z * sinX;
+    let z1 = node.z * cosX + node.y * sinX;
+    
+    const cosY = Math.cos(angleY);
+    const sinY = Math.sin(angleY);
+    let x2 = node.x * cosY + z1 * sinY;
+    let z2 = z1 * cosY - node.x * sinY;
+    
+    return { x: x2, y: y1, z: z2 };
+  }
+
+  const fov = 400; // Focal length
+  
+  function render() {
+    if (!isCanvasRunning) return;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    rotationY += (targetRotationY - rotationY) * 0.05;
+    rotationX += (targetRotationX - rotationX) * 0.05;
+    
+    const projectedNodes = [];
+    const centerX = width / 2;
+    const centerY = height / 2;
+    
+    const isLightTheme = document.documentElement.getAttribute('data-theme') !== 'dark'; // Light by default
+    
+    // Upgraded Visibility: Brighter opacity & thicker lines for visibility on both themes
+    const dotColor = isLightTheme ? 'rgba(99, 102, 241, 0.35)' : 'rgba(0, 220, 255, 0.45)';
+    const lineColor = isLightTheme ? 'rgba(99, 102, 241, 0.08)' : 'rgba(139, 92, 246, 0.15)';
+    const lineWeight = isLightTheme ? 1.0 : 1.25;
+    
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      node.update();
+      
+      const rotated = rotateCoordinates(node, rotationX, rotationY);
+      const cameraZ = rotated.z + 650;
+      
+      if (cameraZ > 0) {
+        const scale = fov / cameraZ;
+        const projX = rotated.x * scale + centerX;
+        const projY = rotated.y * scale + centerY;
+        
+        projectedNodes.push({
+          x: projX,
+          y: projY,
+          scale: scale,
+          z: rotated.z
+        });
+      }
+    }
+    
+    // Draw lines
+    ctx.beginPath();
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = lineWeight;
+    for (let i = 0; i < projectedNodes.length; i++) {
+      for (let j = i + 1; j < projectedNodes.length; j++) {
+        const n1 = projectedNodes[i];
+        const n2 = projectedNodes[j];
+        
+        const dx = n1.x - n2.x;
+        const dy = n1.y - n2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 180) {
+          ctx.moveTo(n1.x, n1.y);
+          ctx.lineTo(n2.x, n2.y);
+        }
+      }
+    }
+    ctx.stroke();
+    
+    // Draw dots
+    for (let i = 0; i < projectedNodes.length; i++) {
+      const p = projectedNodes[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.scale * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = dotColor;
+      ctx.fill();
+    }
+    
+    requestAnimationFrame(render);
+  }
+
+  // Viewport Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isCanvasRunning = entry.isIntersecting && !isReducedMotion;
+      if (isCanvasRunning) render();
+    });
+  }, { threshold: 0.1 });
+  
+  observer.observe(canvas);
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }, 200);
+  });
+
+  if (isCanvasRunning) render();
+
+
+  // --- 3D Interactive Device Tilt (Enlarged phone, smoother movement) ---
+  const deviceWrapper = document.getElementById('device-wrapper');
+  const deviceMockup = document.getElementById('device-mockup');
+  
+  if (deviceWrapper && deviceMockup && !isReducedMotion) {
+    let tiltX = 0;
+    let tiltY = 0;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let scrollRotation = 0;
+    let targetScrollRotation = 0;
+    
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      targetScrollRotation = scrollY * 0.05; // Gentle rotation scroll response
+    }, { passive: true });
+    
+    deviceWrapper.parentElement.addEventListener('mousemove', (e) => {
+      const rect = deviceWrapper.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const mouseX = e.clientX - centerX;
+      const mouseY = e.clientY - centerY;
+      
+      targetTiltY = (mouseX / (rect.width / 2)) * 15; // Limit tilt for smoothness
+      targetTiltX = -(mouseY / (rect.height / 2)) * 15;
+    });
+    
+    deviceWrapper.parentElement.addEventListener('mouseleave', () => {
+      targetTiltX = 0;
+      targetTiltY = 0;
+    });
+    
+    function updateDeviceTilt() {
+      // Smooth linear interpolation (lerp)
+      tiltX += (targetTiltX - tiltX) * 0.08;
+      tiltY += (targetTiltY - tiltY) * 0.08;
+      scrollRotation += (targetScrollRotation - scrollRotation) * 0.1;
+      
+      deviceMockup.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY + scrollRotation}deg)`;
+      
+      requestAnimationFrame(updateDeviceTilt);
+    }
+    
+    requestAnimationFrame(updateDeviceTilt);
+  }
+
+  // --- Real-Time Screenshot app UI updates ---
+  const appRadarValue = document.getElementById('app-radar-value');
+  const gridRSRPValue = document.getElementById('grid-rsrp-val');
+  const gridRSRPFill = document.getElementById('grid-rsrp-fill');
+  
+  const gridRSRQValue = document.getElementById('grid-rsrq-val');
+  const gridRSRQFill = document.getElementById('grid-rsrq-fill');
+  
+  const gridSINRValue = document.getElementById('grid-sinr-val');
+  const gridSINRFill = document.getElementById('grid-sinr-fill');
+  
+  function updateMockScreenUI() {
+    // Generate organic minor shifts keeping parameters aligned to JIO screenshot states
+    
+    // RSRP: -101 dBm base (Critical) -> shifts -99 to -103
+    const rsrpBase = -101;
+    const rsrpShift = Math.floor(Math.sin(Date.now() / 2400) * 2);
+    const rsrp = rsrpBase + rsrpShift;
+    
+    // RSRQ: -11 dB base (Optimal) -> shifts -10 to -12
+    const rsrqBase = -11;
+    const rsrqShift = Math.floor(Math.cos(Date.now() / 1800) * 1);
+    const rsrq = rsrqBase + rsrqShift;
+    
+    // SINR: 8 dB base (Low Quality) -> shifts 6 to 9
+    const sinrBase = 8;
+    const sinrShift = Math.floor(Math.sin(Date.now() / 1500) * 1.5);
+    const sinr = Math.max(0, sinrBase + sinrShift);
+    
+    // Update RSRP elements
+    if (appRadarValue) appRadarValue.textContent = rsrp;
+    if (gridRSRPValue) gridRSRPValue.textContent = `${rsrp} dBm`;
+    if (gridRSRPFill) {
+      const rsrpPct = Math.floor(((rsrp - (-115)) / (-65 - (-115))) * 100);
+      gridRSRPFill.style.width = `${Math.min(100, Math.max(10, rsrpPct))}%`;
+    }
+    
+    // Update RSRQ elements
+    if (gridRSRQValue) gridRSRQValue.textContent = `${rsrq} dB`;
+    if (gridRSRQFill) {
+      const rsrqPct = Math.floor(((rsrq - (-20)) / (-3 - (-20))) * 100);
+      gridRSRQFill.style.width = `${Math.min(100, Math.max(10, rsrqPct))}%`;
+    }
+    
+    // Update SINR elements
+    if (gridSINRValue) gridSINRValue.textContent = `${sinr} dB`;
+    if (gridSINRFill) {
+      const sinrPct = Math.floor(((sinr - (-5)) / (32 - (-5))) * 100);
+      gridSINRFill.style.width = `${Math.min(100, Math.max(10, sinrPct))}%`;
+    }
+  }
+  
+  setInterval(updateMockScreenUI, 1200);
+
+
+  // --- Interactive Telemetry Slider Simulator ---
+  const signalSlider = document.getElementById('signal-slider');
+  const signalBadge = document.getElementById('signal-badge');
+  const signalDesc = document.getElementById('signal-description');
+  const telemetryCarrier = document.getElementById('telemetry-carrier');
+  
+  const valRSRP = document.getElementById('rsrp-val');
+  const valRSRQ = document.getElementById('rsrq-val');
+  const valSINR = document.getElementById('sinr-val');
+  
+  const fillRSRP = document.getElementById('rsrp-fill');
+  const fillRSRQ = document.getElementById('rsrq-fill');
+  const fillSINR = document.getElementById('sinr-fill');
+  
+  const consoleStream = document.getElementById('console-stream');
+  
+  function addConsoleLine(msg) {
+    if (!consoleStream) return;
+    const timeStr = new Date().toLocaleTimeString();
+    const line = document.createElement('div');
+    line.className = 'console-line';
+    line.textContent = `[${timeStr}] ${msg}`;
+    consoleStream.appendChild(line);
+    consoleStream.scrollTop = consoleStream.scrollHeight;
+    
+    while (consoleStream.children.length > 5) {
+      consoleStream.removeChild(consoleStream.firstChild);
+    }
+  }
+
+  const carriers = ["Jio 4G", "Airtel 4G", "Vodafone Idea"];
+  let carrierIndex = 0;
+  
+  setInterval(() => {
+    if (telemetryCarrier) {
+      carrierIndex = (carrierIndex + 1) % carriers.length;
+      telemetryCarrier.textContent = carriers[carrierIndex];
+      addConsoleLine(`Network Status: Serving Cell Registered on ${carriers[carrierIndex]}`);
+    }
+  }, 10000);
+
+  if (signalSlider) {
+    signalSlider.addEventListener('input', (e) => {
+      const score = parseInt(e.target.value);
+      
+      let rsrp, rsrq, sinr, quality, descText, badgeClass;
+      
+      if (score < 30) {
+        rsrp = Math.round(-118 + (score / 30) * 10);
+        rsrq = Math.round(-19 + (score / 30) * 4);
+        sinr = Math.round(-4 + (score / 30) * 6);
+        quality = "CRITICAL";
+        badgeClass = "poor";
+        descText = "Critical signal levels. Severe packet loss and coverage dropouts are expected.";
+      } else if (score < 55) {
+        const rel = (score - 30) / 25;
+        rsrp = Math.round(-108 + rel * 13);
+        rsrq = Math.round(-15 + rel * 4);
+        sinr = Math.round(2 + rel * 7);
+        quality = "LOW QUALITY";
+        badgeClass = "poor"; 
+        descText = "Low quality network signals. Core data actions working, logging active.";
+      } else if (score < 80) {
+        const rel = (score - 55) / 25;
+        rsrp = Math.round(-95 + rel * 15);
+        rsrq = Math.round(-11 + rel * 3);
+        sinr = Math.round(9 + rel * 8);
+        quality = "GOOD";
+        badgeClass = "fair";
+        descText = "Good signal strength. Stable connectivity, ready for routine operations.";
+      } else {
+        const rel = (score - 80) / 20;
+        rsrp = Math.round(-80 + rel * 15);
+        rsrq = Math.round(-8 + rel * 5);
+        sinr = Math.round(17 + rel * 13);
+        quality = "OPTIMAL";
+        badgeClass = "";
+        descText = "Optimal network signal, lowest interference index, maximum link capacity.";
+      }
+      
+      // Update DOM
+      signalBadge.textContent = quality;
+      signalBadge.className = `summary-badge ${badgeClass}`;
+      signalDesc.textContent = descText;
+      
+      valRSRP.textContent = `${rsrp} dBm`;
+      valRSRQ.textContent = `${rsrq} dB`;
+      valSINR.textContent = `${sinr} dB`;
+      
+      const rsrpPct = Math.min(100, Math.max(0, ((rsrp - (-125)) / ( -60 - (-125))) * 100));
+      const rsrqPct = Math.min(100, Math.max(0, ((rsrq - (-20)) / ( -3 - (-20))) * 100));
+      const sinrPct = Math.min(100, Math.max(0, ((sinr - (-5)) / (32 - (-5))) * 100));
+      
+      fillRSRP.style.width = `${rsrpPct}%`;
+      fillRSRQ.style.width = `${rsrqPct}%`;
+      fillSINR.style.width = `${sinrPct}%`;
+      
+      fillRSRP.className = `meter-bar-fill ${quality === 'CRITICAL' || quality === 'LOW QUALITY' ? 'bg-critical' : quality === 'GOOD' ? 'bg-yellow' : 'bg-cyan'}`;
+      fillRSRQ.className = `meter-bar-fill ${quality === 'CRITICAL' || quality === 'LOW QUALITY' ? 'bg-critical' : quality === 'GOOD' ? 'bg-yellow' : 'bg-optimal'}`;
+      fillSINR.className = `meter-bar-fill ${quality === 'CRITICAL' || quality === 'LOW QUALITY' ? 'bg-critical' : quality === 'GOOD' ? 'bg-yellow' : 'bg-low'}`;
+      
+      if (Math.random() > 0.75) {
+        addConsoleLine(`Hardware telemetry: PCI=219 RSRP=${rsrp}dBm SINR=${sinr}dB`);
+      }
+    });
+  }
+
+
+  // --- Speed Test Benchmark Simulator ---
+  const btnSpeedtest = document.getElementById('btn-start-speedtest');
+  const speedNumber = document.getElementById('speed-number');
+  const gaugeFill = document.getElementById('speed-gauge-fill');
+  
+  const speedDownload = document.getElementById('speed-download');
+  const speedUpload = document.getElementById('speed-upload');
+  const speedPing = document.getElementById('speed-ping');
+  const speedJitter = document.getElementById('speed-jitter');
+  
+  const maxDashOffset = 534;
+  
+  function updateSpeedometer(mbps, maxSpeed = 100) {
+    if (!speedNumber || !gaugeFill) return;
+    speedNumber.textContent = mbps.toFixed(1);
+    
+    const fraction = Math.min(1.0, mbps / maxSpeed);
+    const activeLength = 400; 
+    const offset = maxDashOffset - (fraction * activeLength);
+    gaugeFill.style.strokeDashoffset = offset;
+  }
+  
+  if (btnSpeedtest) {
+    btnSpeedtest.addEventListener('click', () => {
+      btnSpeedtest.disabled = true;
+      btnSpeedtest.textContent = "Connecting...";
+      
+      speedDownload.textContent = "- -";
+      speedUpload.textContent = "- -";
+      speedPing.textContent = "- -";
+      speedJitter.textContent = "- -";
+      
+      addConsoleLine("Speedtest: Initiating network socket...");
+      
+      // PHASE 1: Ping / Jitter
+      setTimeout(() => {
+        btnSpeedtest.textContent = "Testing Ping...";
+        const ping = Math.floor(18 + Math.random() * 12);
+        const jitter = Math.floor(2 + Math.random() * 3);
+        
+        speedPing.textContent = `${ping} ms`;
+        speedJitter.textContent = `${jitter} ms`;
+        addConsoleLine(`Speedtest: Connection active. Ping=${ping}ms Jitter=${jitter}ms`);
+        
+        // PHASE 2: Download Speed
+        setTimeout(() => {
+          btnSpeedtest.textContent = "Testing Download...";
+          addConsoleLine("Speedtest: Running download stream...");
+          
+          let currentSpeed = 0;
+          const targetDownload = 40 + Math.random() * 15;
+          const duration = 2500;
+          const intervalTime = 50;
+          const steps = duration / intervalTime;
+          let step = 0;
+          
+          const downloadInterval = setInterval(() => {
+            step++;
+            const t = step / steps;
+            currentSpeed = targetDownload * (1 - Math.pow(1 - t, 3)); 
+            currentSpeed += (Math.random() - 0.5) * 3;
+            if (currentSpeed < 0) currentSpeed = 0;
+            
+            updateSpeedometer(currentSpeed, 80);
+            
+            if (step >= steps) {
+              clearInterval(downloadInterval);
+              speedDownload.textContent = `${targetDownload.toFixed(1)} Mbps`;
+              addConsoleLine(`Speedtest: Download completed: ${targetDownload.toFixed(1)} Mbps`);
+              
+              // PHASE 3: Upload Speed
+              setTimeout(() => {
+                btnSpeedtest.textContent = "Testing Upload...";
+                addConsoleLine("Speedtest: Running upload stream...");
+                
+                let currentUploadSpeed = 0;
+                const targetUpload = 10 + Math.random() * 5;
+                const uSteps = 40;
+                let uStep = 0;
+                
+                const uploadInterval = setInterval(() => {
+                  uStep++;
+                  const t = uStep / uSteps;
+                  currentUploadSpeed = targetUpload * (1 - Math.pow(1 - t, 3));
+                  currentUploadSpeed += (Math.random() - 0.5) * 1.5;
+                  if (currentUploadSpeed < 0) currentUploadSpeed = 0;
+                  
+                  updateSpeedometer(currentUploadSpeed, 30);
+                  
+                  if (uStep >= uSteps) {
+                    clearInterval(uploadInterval);
+                    speedUpload.textContent = `${targetUpload.toFixed(1)} Mbps`;
+                    addConsoleLine(`Speedtest: Upload completed: ${targetUpload.toFixed(1)} Mbps`);
+                    
+                    // Reset
+                    setTimeout(() => {
+                      updateSpeedometer(0);
+                      btnSpeedtest.disabled = false;
+                      btnSpeedtest.textContent = "Run Benchmark";
+                      addConsoleLine("Speedtest: Session completed and logged on-device.");
+                    }, 1000);
+                  }
+                }, 50);
+              }, 600);
+            }
+          }, intervalTime);
+        }, 1200);
+      }, 1000);
+    });
+  }
+
+
+  // --- Interactive Map Points & Tooltip ---
+  const mapPoints = document.querySelectorAll('.map-point');
+  const mapTooltip = document.getElementById('map-tooltip');
+  
+  mapPoints.forEach(point => {
+    point.addEventListener('mouseenter', (e) => {
+      const rsrp = point.getAttribute('data-rsrp') || '-101 dBm';
+      const coord = point.getAttribute('data-coord') || '40.714, -74.004';
+      
+      if (mapTooltip) {
+        mapTooltip.innerHTML = `
+          <div class="tooltip-title">Telemetry Node</div>
+          <div class="tooltip-body">
+            <strong>RSRP:</strong> ${rsrp}<br>
+            <strong>GPS:</strong> ${coord}
+          </div>
+        `;
+        mapTooltip.classList.add('active');
+      }
+    });
+    
+    point.addEventListener('mouseleave', () => {
+      if (mapTooltip) {
+        mapTooltip.classList.remove('active');
+      }
+    });
+  });
+
+
+  // --- Map tabs navigation ---
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-target');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+
+  // --- Clipboard copy utility ---
+  const btnCopyCsv = document.getElementById('btn-copy-csv');
+  const csvCodeBlock = document.getElementById('csv-code-block');
+  
+  if (btnCopyCsv && csvCodeBlock) {
+    btnCopyCsv.addEventListener('click', () => {
+      const codeText = csvCodeBlock.textContent;
+      navigator.clipboard.writeText(codeText).then(() => {
+        btnCopyCsv.textContent = "Copied!";
+        btnCopyCsv.style.borderColor = "var(--neon-green)";
+        btnCopyCsv.style.color = "var(--neon-green)";
+        
+        setTimeout(() => {
+          btnCopyCsv.textContent = "Copy Header";
+          btnCopyCsv.style.borderColor = "";
+          btnCopyCsv.style.color = "";
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    });
+  }
+});
