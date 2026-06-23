@@ -848,4 +848,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Static fallback: set mock dashboard to a good coverage state
     updateTelemetryDashboard(-80, -9, 21, "Jio 4G", 219);
   }
+
+  // --- Back to Top Scroll Behavior ---
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 });
