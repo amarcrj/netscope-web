@@ -2144,3 +2144,167 @@ h1, h2, h3, h4 {
     display: none;
   }
 }
+
+/* ==========================================================================
+   PREMIUM UX / DYNAMIC ANIMATIONS OVERHAUL
+   ========================================================================== */
+
+/* 1. Map Drive Vehicle Dot Styling */
+.map-point-vehicle {
+  fill: #00f3ff;
+  stroke: #ffffff;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 8px #00f3ff);
+  r: 6px;
+  transition: r 0.2s ease, fill 0.2s ease;
+  cursor: pointer;
+}
+.map-point-vehicle:hover {
+  r: 8px;
+  fill: #ffffff;
+}
+
+/* 2. Cell Tower Transmission Ripples */
+@keyframes towerRipple {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+.ping-wave {
+  animation: towerRipple 2.5s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: 0px 0px; /* Origin at tower top (0,0) */
+}
+.wave-1 {
+  animation-delay: 0s;
+}
+.wave-2 {
+  animation-delay: 1.25s;
+}
+
+/* 3. Mouse-Tracking Spotlight Hover Glow for Feature Cards */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+.feature-card > * {
+  position: relative;
+  z-index: 2;
+}
+/* Card Inner Radial Background Glow */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(0, 243, 255, 0.05),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+/* Card Border Radial Stroke Glow */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(0, 243, 255, 0.3),
+    transparent 60%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+.feature-card:hover::before,
+.feature-card:hover::after {
+  opacity: 1;
+}
+
+/* Light Theme Adjustments for Mouse Spotlight */
+body.light-theme .feature-card::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(10, 80, 220, 0.03),
+    transparent 50%
+  );
+}
+body.light-theme .feature-card::after {
+  background: radial-gradient(
+    200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(10, 80, 220, 0.2),
+    transparent 60%
+  );
+}
+
+/* 4. Scroll-Driven Reveal Transitions (Intersection Observer) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Staggered Delay using inline card indices */
+.reveal[style*="--card-index"] {
+  transition-delay: calc(var(--card-index) * 0.08s);
+}
+
+/* 5. Theme Switcher & Code Copy Animations */
+.theme-toggle-nav {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.theme-toggle-nav:active {
+  transform: scale(0.85) rotate(180deg);
+}
+
+.btn-copy {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-copy.copied {
+  transform: scale(1.05);
+  background-color: rgba(0, 243, 255, 0.1);
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+/* Accessibility overrides for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .ping-wave {
+    animation: none !important;
+  }
+  .feature-card::before,
+  .feature-card::after {
+    display: none !important;
+  }
+}

@@ -257,48 +257,163 @@ document.addEventListener('DOMContentLoaded', () => {
   const gridSINRValue = document.getElementById('grid-sinr-val');
   const gridSINRFill = document.getElementById('grid-sinr-fill');
   
-  function updateMockScreenUI() {
-    // Generate organic minor shifts keeping parameters aligned to JIO screenshot states
+  function updateTelemetryDashboard(rsrp, rsrq, sinr, carrier, pci) {
+    let status = "CRITICAL";
+    let statusClass = "critical"; // maps to critical, low, optimal in CSS
     
-    // RSRP: -101 dBm base (Critical) -> shifts -99 to -103
-    const rsrpBase = -101;
-    const rsrpShift = Math.floor(Math.sin(Date.now() / 2400) * 2);
-    const rsrp = rsrpBase + rsrpShift;
-    
-    // RSRQ: -11 dB base (Optimal) -> shifts -10 to -12
-    const rsrqBase = -11;
-    const rsrqShift = Math.floor(Math.cos(Date.now() / 1800) * 1);
-    const rsrq = rsrqBase + rsrqShift;
-    
-    // SINR: 8 dB base (Low Quality) -> shifts 6 to 9
-    const sinrBase = 8;
-    const sinrShift = Math.floor(Math.sin(Date.now() / 1500) * 1.5);
-    const sinr = Math.max(0, sinrBase + sinrShift);
-    
-    // Update RSRP elements
-    if (appRadarValue) appRadarValue.textContent = rsrp;
-    if (gridRSRPValue) gridRSRPValue.textContent = `${rsrp} dBm`;
-    if (gridRSRPFill) {
-      const rsrpPct = Math.floor(((rsrp - (-115)) / (-65 - (-115))) * 100);
-      gridRSRPFill.style.width = `${Math.min(100, Math.max(10, rsrpPct))}%`;
+    if (rsrp >= -95) {
+      status = "OPTIMAL";
+      statusClass = "optimal";
+    } else if (rsrp >= -108) {
+      status = "LOW QUALITY";
+      statusClass = "low";
+    } else {
+      status = "CRITICAL";
+      statusClass = "critical";
     }
     
-    // Update RSRQ elements
+    // 1. Live Radar Display
+    if (appRadarValue) appRadarValue.textContent = rsrp;
+    const appRadarBadge = document.getElementById('app-radar-badge');
+    if (appRadarBadge) {
+      appRadarBadge.textContent = status;
+      appRadarBadge.className = `radar-badge-status bg-${statusClass} text-${statusClass}`;
+    }
+    
+    // 2. Carrier & Cell PCI info
+    const appCarrierVal = document.getElementById('app-carrier-val');
+    if (appCarrierVal) appCarrierVal.textContent = carrier.toUpperCase();
+    
+    const appPciVal = document.getElementById('app-pci-val');
+    if (appPciVal) appPciVal.textContent = pci;
+    
+    const gridPciVal = document.getElementById('grid-pci-val');
+    if (gridPciVal) gridPciVal.textContent = pci;
+    
+    // 3. Grid RSRP Card Update
+    if (gridRSRPValue) gridRSRPValue.textContent = `${rsrp} dBm`;
+    if (gridRSRPFill) {
+      const rsrpPct = Math.floor(((rsrp - (-120)) / (-65 - (-120))) * 100);
+      gridRSRPFill.style.width = `${Math.min(100, Math.max(10, rsrpPct))}%`;
+    }
+    const gridRSRPStatus = document.getElementById('grid-rsrp-status');
+    if (gridRSRPStatus) gridRSRPStatus.textContent = status;
+    
+    const rsrpCard = document.querySelector('.telemetry-grid-card:nth-child(1)');
+    if (rsrpCard) {
+      rsrpCard.className = `telemetry-grid-card border-${statusClass}`;
+      const valueEl = rsrpCard.querySelector('.c-value');
+      if (valueEl) {
+        valueEl.className = `c-value text-${statusClass}`;
+        valueEl.textContent = `${rsrp} dBm`;
+      }
+      const statusEl = rsrpCard.querySelector('.c-status');
+      if (statusEl) {
+        statusEl.className = `c-status text-${statusClass}`;
+        statusEl.textContent = status;
+      }
+      const fillEl = rsrpCard.querySelector('.c-progress-fill');
+      if (fillEl) {
+        fillEl.className = `c-progress-fill bg-${statusClass}`;
+      }
+      const iconEl = rsrpCard.querySelector('.c-icon');
+      if (iconEl) iconEl.className = `c-icon text-${statusClass}`;
+    }
+    
+    // 4. Grid RSRQ Card Update
     if (gridRSRQValue) gridRSRQValue.textContent = `${rsrq} dB`;
     if (gridRSRQFill) {
       const rsrqPct = Math.floor(((rsrq - (-20)) / (-3 - (-20))) * 100);
       gridRSRQFill.style.width = `${Math.min(100, Math.max(10, rsrqPct))}%`;
     }
     
-    // Update SINR elements
+    let rsrqStatus = "OPTIMAL";
+    let rsrqClass = "optimal";
+    if (rsrq >= -10) {
+      rsrqStatus = "OPTIMAL";
+      rsrqClass = "optimal";
+    } else if (rsrq >= -14) {
+      rsrqStatus = "GOOD";
+      rsrqClass = "optimal";
+    } else if (rsrq >= -17) {
+      rsrqStatus = "LOW QUALITY";
+      rsrqClass = "low";
+    } else {
+      rsrqStatus = "CRITICAL";
+      rsrqClass = "critical";
+    }
+    
+    const gridRSRQStatus = document.getElementById('grid-rsrq-status');
+    if (gridRSRQStatus) gridRSRQStatus.textContent = rsrqStatus;
+    
+    const rsrqCard = document.querySelector('.telemetry-grid-card:nth-child(2)');
+    if (rsrqCard) {
+      rsrqCard.className = `telemetry-grid-card border-${rsrqClass}`;
+      const valueEl = rsrqCard.querySelector('.c-value');
+      if (valueEl) {
+        valueEl.className = `c-value text-${rsrqClass}`;
+        valueEl.textContent = `${rsrq} dB`;
+      }
+      const statusEl = rsrqCard.querySelector('.c-status');
+      if (statusEl) {
+        statusEl.className = `c-status text-${rsrqClass}`;
+        statusEl.textContent = rsrqStatus;
+      }
+      const fillEl = rsrqCard.querySelector('.c-progress-fill');
+      if (fillEl) {
+        fillEl.className = `c-progress-fill bg-${rsrqClass}`;
+      }
+      const iconEl = rsrqCard.querySelector('.c-icon');
+      if (iconEl) iconEl.className = `c-icon text-${rsrqClass}`;
+    }
+    
+    // 5. Grid SINR Card Update
     if (gridSINRValue) gridSINRValue.textContent = `${sinr} dB`;
     if (gridSINRFill) {
-      const sinrPct = Math.floor(((sinr - (-5)) / (32 - (-5))) * 100);
+      const sinrPct = Math.floor(((sinr - 0) / (30 - 0)) * 100);
       gridSINRFill.style.width = `${Math.min(100, Math.max(10, sinrPct))}%`;
     }
+    
+    let sinrStatus = "OPTIMAL";
+    let sinrClass = "optimal";
+    if (sinr >= 20) {
+      sinrStatus = "OPTIMAL";
+      sinrClass = "optimal";
+    } else if (sinr >= 12) {
+      sinrStatus = "GOOD";
+      sinrClass = "optimal";
+    } else if (sinr >= 5) {
+      sinrStatus = "LOW QUALITY";
+      sinrClass = "low";
+    } else {
+      sinrStatus = "CRITICAL";
+      sinrClass = "critical";
+    }
+    
+    const gridSINRStatus = document.getElementById('grid-sinr-status');
+    if (gridSINRStatus) gridSINRStatus.textContent = sinrStatus;
+    
+    const sinrCard = document.querySelector('.telemetry-grid-card:nth-child(3)');
+    if (sinrCard) {
+      sinrCard.className = `telemetry-grid-card border-${sinrClass}`;
+      const valueEl = sinrCard.querySelector('.c-value');
+      if (valueEl) {
+        valueEl.className = `c-value text-${sinrClass}`;
+        valueEl.textContent = `${sinr} dB`;
+      }
+      const statusEl = sinrCard.querySelector('.c-status');
+      if (statusEl) {
+        statusEl.className = `c-status text-${sinrClass}`;
+        statusEl.textContent = sinrStatus;
+      }
+      const fillEl = sinrCard.querySelector('.c-progress-fill');
+      if (fillEl) {
+        fillEl.className = `c-progress-fill bg-${sinrClass}`;
+      }
+      const iconEl = sinrCard.querySelector('.c-icon');
+      if (iconEl) iconEl.className = `c-icon text-${sinrClass}`;
+    }
   }
-  
-  setInterval(updateMockScreenUI, 1200);
 
 
   // --- Interactive Telemetry Slider Simulator ---
@@ -521,28 +636,55 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // --- Interactive Map Points & Tooltip ---
+  // --- Interactive Map Points, Tooltip & Telemetry Sync ---
   const mapPoints = document.querySelectorAll('.map-point');
   const mapTooltip = document.getElementById('map-tooltip');
+  let isVehiclePaused = false;
   
   mapPoints.forEach(point => {
     point.addEventListener('mouseenter', (e) => {
-      const rsrp = point.getAttribute('data-rsrp') || '-101 dBm';
+      isVehiclePaused = true;
+      const rsrpStr = point.getAttribute('data-rsrp') || '-101 dBm';
       const coord = point.getAttribute('data-coord') || '40.714, -74.004';
       
       if (mapTooltip) {
         mapTooltip.innerHTML = `
           <div class="tooltip-title">Telemetry Node</div>
           <div class="tooltip-body">
-            <strong>RSRP:</strong> ${rsrp}<br>
+            <strong>RSRP:</strong> ${rsrpStr}<br>
             <strong>GPS:</strong> ${coord}
           </div>
         `;
         mapTooltip.classList.add('active');
       }
+      
+      // Update phone dashboard to match hovered point
+      const rsrpVal = parseInt(rsrpStr) || -101;
+      const cx = parseFloat(point.getAttribute('cx')) || 0;
+      const pci = cx < 200 ? 219 : 408;
+      const carrier = pci === 219 ? "Jio 4G" : "Airtel 4G";
+      
+      let rsrqVal = -11;
+      let sinrVal = 8;
+      if (rsrpVal >= -85) {
+        rsrqVal = -7;
+        sinrVal = 25;
+      } else if (rsrpVal >= -98) {
+        rsrqVal = -11;
+        sinrVal = 14;
+      } else if (rsrpVal >= -108) {
+        rsrqVal = -15;
+        sinrVal = 6;
+      } else {
+        rsrqVal = -18;
+        sinrVal = 2;
+      }
+      
+      updateTelemetryDashboard(rsrpVal, rsrqVal, sinrVal, carrier, pci);
     });
     
     point.addEventListener('mouseleave', () => {
+      isVehiclePaused = false;
       if (mapTooltip) {
         mapTooltip.classList.remove('active');
       }
@@ -569,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  // --- Clipboard copy utility ---
+  // --- Clipboard copy utility with Premium Success Animation ---
   const btnCopyCsv = document.getElementById('btn-copy-csv');
   const csvCodeBlock = document.getElementById('csv-code-block');
   
@@ -577,18 +719,133 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCopyCsv.addEventListener('click', () => {
       const codeText = csvCodeBlock.textContent;
       navigator.clipboard.writeText(codeText).then(() => {
-        btnCopyCsv.textContent = "Copied!";
-        btnCopyCsv.style.borderColor = "var(--neon-green)";
-        btnCopyCsv.style.color = "var(--neon-green)";
+        btnCopyCsv.textContent = "✓ Copied!";
+        btnCopyCsv.classList.add('copied');
         
         setTimeout(() => {
           btnCopyCsv.textContent = "Copy Header";
-          btnCopyCsv.style.borderColor = "";
-          btnCopyCsv.style.color = "";
+          btnCopyCsv.classList.remove('copied');
         }, 2000);
       }).catch(err => {
         console.error('Failed to copy text: ', err);
       });
     });
+  }
+
+
+  // --- Card Spotlight Hover Glow (Vercel/Supabase style) ---
+  const featureCards = document.querySelectorAll('.feature-card');
+  if (featureCards.length > 0 && !isReducedMotion) {
+    featureCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  }
+
+
+  // --- Scroll-Driven Reveal Transitions (Intersection Observer) ---
+  const revealElements = document.querySelectorAll('.reveal');
+  if (revealElements.length > 0 && !isReducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target); // Trigger once
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else if (isReducedMotion) {
+    // If user prefers reduced motion, show them immediately
+    revealElements.forEach(el => el.classList.add('active'));
+  }
+
+
+  // --- Animated Drive Test Vehicle & Telemetry Synchronization ---
+  const drivePath = document.getElementById('map-drive-path');
+  const driveVehicle = document.getElementById('drive-vehicle');
+  
+  if (drivePath && driveVehicle && !isReducedMotion) {
+    const pathLength = drivePath.getTotalLength();
+    let vehicleProgress = 0;
+    const speed = 0.55; // Pixels per frame
+    
+    // Set initial position
+    const startPt = drivePath.getPointAtLength(0);
+    driveVehicle.setAttribute('cx', startPt.x);
+    driveVehicle.setAttribute('cy', startPt.y);
+    
+    // Track previous handover side
+    let lastHandoverSide = 'left'; // left is Jio, right is Airtel
+    
+    function animateVehicle() {
+      if (!isVehiclePaused) {
+        vehicleProgress += speed;
+        if (vehicleProgress > pathLength) {
+          vehicleProgress = 0;
+        }
+        
+        const pt = drivePath.getPointAtLength(vehicleProgress);
+        driveVehicle.setAttribute('cx', pt.x);
+        driveVehicle.setAttribute('cy', pt.y);
+        
+        // Calculate distance from Cell Tower coordinates (190, 40)
+        const dx = pt.x - 190;
+        const dy = pt.y - 40;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        // Map distance to signal metrics
+        // Peak signal is closest to tower (dist ~ 70-100px) -> RSRP ~ -74 dBm
+        // Weakest signal is far (dist ~ 200px+) -> RSRP ~ -116 dBm
+        const rsrp = Math.min(-68, Math.max(-118, Math.round(-65 - (dist - 65) * 0.4)));
+        const rsrq = Math.min(-6, Math.max(-19, Math.round(-5 - (dist - 65) * 0.1)));
+        const sinr = Math.min(30, Math.max(1, Math.round(28 - (dist - 65) * 0.2)));
+        
+        // Determine Carrier & Cell PCI info based on coordinate boundary (x = 200)
+        let carrier = "Jio 4G";
+        let pci = 219;
+        let currentHandoverSide = 'left';
+        
+        if (pt.x >= 200) {
+          carrier = "Airtel 4G";
+          pci = 408;
+          currentHandoverSide = 'right';
+        }
+        
+        // Trigger console lines on carrier boundary transitions
+        if (currentHandoverSide !== lastHandoverSide) {
+          if (currentHandoverSide === 'right') {
+            addConsoleLine(`Handover initiated: Jio 4G (PCI 219) ➔ Airtel 4G (PCI 408)`);
+          } else {
+            addConsoleLine(`Handover initiated: Airtel 4G (PCI 408) ➔ Jio 4G (PCI 219)`);
+          }
+          lastHandoverSide = currentHandoverSide;
+        }
+        
+        // Periodically log location/telemetry details to console block
+        if (Math.floor(vehicleProgress) % 90 === 0) {
+          addConsoleLine(`GPS updated. PCI=${pci} RSRP=${rsrp}dBm SINR=${sinr}dB`);
+        }
+        
+        // Update the 3D Phone Screen
+        updateTelemetryDashboard(rsrp, rsrq, sinr, carrier, pci);
+      }
+      
+      requestAnimationFrame(animateVehicle);
+    }
+    
+    // Start vehicle loop
+    requestAnimationFrame(animateVehicle);
+  } else if (isReducedMotion) {
+    // Static fallback: set mock dashboard to a good coverage state
+    updateTelemetryDashboard(-80, -9, 21, "Jio 4G", 219);
   }
 });
