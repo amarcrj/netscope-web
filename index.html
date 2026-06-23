@@ -45,12 +45,15 @@
           <a href="#map" class="nav-link">Coverage Map</a>
           <a href="#privacy" class="nav-link">Privacy Policy</a>
         </div>
-        <a href="#telemetry" class="btn btn-secondary nav-btn">Explore App</a>
-        <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
+        <div class="nav-right">
+          <button id="theme-toggle-btn" class="theme-toggle-nav" aria-label="Toggle light/dark color theme">🌓</button>
+          <a href="#telemetry" class="btn btn-secondary nav-btn">Explore App</a>
+          <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
       </nav>
     </div>
   </header>
@@ -447,7 +450,7 @@
         <div class="map-visual">
           <!-- macOS style wrapper around Map to look professional -->
           <div class="mac-window glass">
-            <div class="mac-header">
+            <div class="mac-header map-header">
               <div class="mac-dots">
                 <span class="mac-dot close"></span>
                 <span class="mac-dot minimize"></span>
@@ -508,7 +511,7 @@
           
           <!-- macOS Window styling for code box -->
           <div class="mac-window glass">
-            <div class="mac-header">
+            <div class="mac-header csv-header">
               <div class="mac-dots">
                 <span class="mac-dot close"></span>
                 <span class="mac-dot minimize"></span>
@@ -612,10 +615,7 @@
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-container">
-        <p>&copy; 2026 NetScope. Proprietary application utility.</p>
-        <div class="theme-switch-container">
-          <button id="theme-toggle-btn" aria-label="Toggle light/dark color theme">🌓 Switch Theme</button>
-        </div>
+         <p>&copy; 2026 NetScope. Proprietary application utility.</p>
       </div>
     </div>
   </footer>
