@@ -1638,10 +1638,22 @@ h1, h2, h3, h4 {
 
 .privacy-box {
   padding: 3rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2.5rem;
   text-align: left;
+}
+
+.privacy-grid {
+  display: flex;
+  gap: 3rem;
+}
+
+.privacy-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .privacy-section h3 {
@@ -1678,7 +1690,6 @@ h1, h2, h3, h4 {
 }
 
 .privacy-section-footer {
-  grid-column: span 2;
   border-top: 1px solid var(--border-glass);
   padding-top: 1.5rem;
   font-size: 0.85rem;
@@ -1953,13 +1964,13 @@ h1, h2, h3, h4 {
   }
 
   .privacy-box {
-    grid-template-columns: 1fr;
     padding: 2rem 1.5rem;
     gap: 2rem;
   }
 
-  .privacy-section-footer {
-    grid-column: span 1;
+  .privacy-grid {
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .supabase-sync-card {

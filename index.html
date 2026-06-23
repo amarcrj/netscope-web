@@ -601,29 +601,35 @@
         </div>
         
         <div class="privacy-box glass">
-          <div class="privacy-section">
-            <h3>1. Local Data Processing Model</h3>
-            <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ, SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark measurements are processed, visualised, and written strictly to local storage files (CSV format) on your device. We do not maintain or connect to any cloud server by default, and we never collect, compile, or transmit your records.</p>
-          </div>
-          
-          <div class="privacy-section">
-            <h3>2. Permission Rationale</h3>
-            <p>To deliver its core utilities, NetScope requires specific Android or iOS hardware permissions, strictly utilized as follows:</p>
-            <ul class="privacy-list">
-              <li><strong>Location Access (Precise/Fine GPS):</strong> Required to associate signal parameters with geographic coordinates and draw trails on the map views. Location data is stored purely locally on your device in your session CSV files.</li>
-              <li><strong>Phone State Access:</strong> Required to extract raw hardware indicators from the active SIM cards (carrier name, network technology type, signal strengths, physical cell identifier PCI). NetScope never reads your contact list, device identifier numbers, or phone call history.</li>
-              <li><strong>Notification Access:</strong> Used to run a persistent foreground service, allowing the background logging utility to write session data continuously when the screen is locked or when switching between active tasks.</li>
-            </ul>
-          </div>
-          
-          <div class="privacy-section">
-            <h3>3. User-Configured Sync Options</h3>
-            <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly between your device and your private Supabase database using credentials you supply. NetScope does not act as an intermediary, does not store your Supabase keys, and has no visibility into your database logs.</p>
-          </div>
-          
-          <div class="privacy-section">
-            <h3>4. Data Ownership & Deletion</h3>
-            <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local data folders and logs completely.</p>
+          <div class="privacy-grid">
+            <div class="privacy-column">
+              <div class="privacy-section">
+                <h3>1. Local Data Processing Model</h3>
+                <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ, SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark measurements are processed, visualised, and written strictly to local storage files (CSV format) on your device. We do not maintain or connect to any cloud server by default, and we never collect, compile, or transmit your records.</p>
+              </div>
+              
+              <div class="privacy-section">
+                <h3>3. User-Configured Sync Options</h3>
+                <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly between your device and your private Supabase database using credentials you supply. NetScope does not act as an intermediary, does not store your Supabase keys, and has no visibility into your database logs.</p>
+              </div>
+            </div>
+            
+            <div class="privacy-column">
+              <div class="privacy-section">
+                <h3>2. Permission Rationale</h3>
+                <p>To deliver its core utilities, NetScope requires specific Android or iOS hardware permissions, strictly utilized as follows:</p>
+                <ul class="privacy-list">
+                  <li><strong>Location Access (Precise/Fine GPS):</strong> Required to associate signal parameters with geographic coordinates and draw trails on the map views. Location data is stored purely locally on your device in your session CSV files.</li>
+                  <li><strong>Phone State Access:</strong> Required to extract raw hardware indicators from the active SIM cards (carrier name, network technology type, signal strengths, physical cell identifier PCI). NetScope never reads your contact list, device identifier numbers, or phone call history.</li>
+                  <li><strong>Notification Access:</strong> Used to run a persistent foreground service, allowing the background logging utility to write session data continuously when the screen is locked or when switching between active tasks.</li>
+                </ul>
+              </div>
+              
+              <div class="privacy-section">
+                <h3>4. Data Ownership & Deletion</h3>
+                <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local data folders and logs completely.</p>
+              </div>
+            </div>
           </div>
           
           <div class="privacy-section-footer">
