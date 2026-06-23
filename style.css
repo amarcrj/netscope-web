@@ -164,6 +164,20 @@ body {
   padding: 0 2rem;
 }
 
+/* Prevent content blowout in CSS Grid columns on small screens */
+.hero-content,
+.hero-visual,
+.telemetry-content,
+.telemetry-visual,
+.speed-content,
+.speed-visual,
+.map-content,
+.map-visual,
+.integration-content,
+.supabase-card-wrap {
+  min-width: 0;
+}
+
 .container-narrow {
   max-width: 800px;
 }
@@ -1460,7 +1474,7 @@ h1, h2, h3, h4 {
 }
 
 /* --- macOS Terminal Windows for Code Blocks --- */
-.code-header .btn-copy {
+.mac-header .btn-copy {
   position: absolute;
   right: 1.2rem;
   background: rgba(255,255,255,0.03);
@@ -1473,7 +1487,7 @@ h1, h2, h3, h4 {
   transition: var(--transition-fast);
 }
 
-.code-header .btn-copy:hover {
+.mac-header .btn-copy:hover {
   background: var(--primary-glow);
   color: #ffffff;
 }
@@ -1866,6 +1880,8 @@ h1, h2, h3, h4 {
     margin: 0.2rem 0;
     text-align: center;
     word-break: break-all;
+    width: 100%;
+    max-width: 100%;
   }
   .mac-header.map-header .map-legend {
     justify-content: center;
@@ -1875,7 +1891,8 @@ h1, h2, h3, h4 {
   }
   .mac-header.csv-header .btn-copy {
     position: static;
-    margin-top: 0.2rem;
+    margin: 0.4rem auto 0 auto;
+    display: inline-block;
   }
 
   /* Card paddings and other layout adjustments */
@@ -1930,13 +1947,19 @@ h1, h2, h3, h4 {
 
   .db-visual-animation {
     flex-direction: column;
+    align-items: center;
     gap: 0.8rem;
     padding: 0.8rem;
   }
 
   .sync-arrow-wrap {
-    transform: rotate(90deg);
     margin: 0.2rem 0;
+    gap: 0.1rem;
+  }
+
+  .sync-arrow {
+    transform: rotate(90deg);
+    display: inline-block;
   }
 
   .speed-test-widget {
