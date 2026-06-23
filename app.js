@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const appRadarBadge = document.getElementById('app-radar-badge');
     if (appRadarBadge) {
       appRadarBadge.textContent = status;
-      appRadarBadge.className = `radar-badge-status bg-${statusClass} text-${statusClass}`;
+      appRadarBadge.className = `radar-badge-status status-${statusClass}`;
     }
     
     // 2. Carrier & Cell PCI info
