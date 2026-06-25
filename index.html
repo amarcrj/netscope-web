@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="assets/logo.png">
-  <meta name="description" content="NetScope - A high-performance, feature-rich cellular telemetry and mapping application. Monitor real-time RSRP, RSRQ, SINR, PCI, map coverage trails, run speed tests, and export CSV logs.">
-  <meta name="keywords" content="NetScope, cellular telemetry, network logging, RSRP, RSRQ, SINR, signal strength, speed test, background logging, network engineering">
+  <meta name="description"
+    content="NetScope - A high-performance, feature-rich cellular telemetry and mapping application. Monitor real-time RSRP, RSRQ, SINR, PCI, map coverage trails, run speed tests, and export CSV logs.">
+  <meta name="keywords"
+    content="NetScope, cellular telemetry, network logging, RSRP, RSRQ, SINR, signal strength, speed test, background logging, network engineering">
   <meta name="author" content="NetScope Team">
   <meta property="og:title" content="NetScope - Cellular Telemetry & Mapping App">
-  <meta property="og:description" content="Track live cell parameters, map coverage trails, run speed tests, and log CSV sessions with background service support.">
+  <meta property="og:description"
+    content="Track live cell parameters, map coverage trails, run speed tests, and log CSV sessions with background service support.">
   <meta property="og:type" content="website">
-  
+
   <title>NetScope | Cellular Telemetry & Live Mapping App</title>
-  
+
   <!-- Preconnect and Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  
+
   <!-- Ambient background glow blobs for premium developer aesthetic -->
   <div class="bg-glow-blob blob-1" aria-hidden="true"></div>
   <div class="bg-glow-blob blob-2" aria-hidden="true"></div>
   <div class="bg-glow-blob blob-3" aria-hidden="true"></div>
- 
+
   <!-- Canvas for scrollable 3D-mesh network background -->
   <canvas id="network-canvas" aria-hidden="true"></canvas>
- 
+
   <!-- Header / Floating Glassmorphism Pill Navigation -->
   <header id="site-header">
     <div class="container header-container">
@@ -65,8 +72,11 @@
       <div class="container hero-container">
         <div class="hero-content">
           <div class="badge reveal">v1.2.0 Background Logger Active</div>
-          <h1 class="hero-title reveal">Visualize Your Cellular <span class="text-glow">Telemetry</span> In Real Time</h1>
-          <p class="hero-subtitle reveal">NetScope is a premium on-device utility designed to capture active cell parameters, run network benchmarks, and map coverage trails in real time—even while running in the background.</p>
+          <h1 class="hero-title reveal">Visualize Your Cellular <span class="text-glow">Telemetry</span> In Real Time
+          </h1>
+          <p class="hero-subtitle reveal">NetScope is a premium on-device utility designed to capture active cell
+            parameters, run network benchmarks, and map coverage trails in real time—even while running in the
+            background.</p>
           <div class="hero-buttons reveal">
             <a href="#telemetry" class="btn btn-primary">Try Telemetry Demo</a>
             <a href="#privacy" class="btn btn-outline">Read Privacy Info</a>
@@ -86,12 +96,12 @@
             </div>
           </div>
         </div>
-        
+
         <!-- 3D Interactive Device Mockup (Enlarged and aligned with screenshot) -->
         <div class="hero-visual">
           <!-- Ambient glowing aura behind the mockup -->
           <div class="hero-visual-glow" aria-hidden="true"></div>
-          
+
           <div class="device-3d-wrapper" id="device-wrapper">
             <div class="device-3d" id="device-mockup">
               <!-- Front Face / Screen -->
@@ -102,14 +112,14 @@
                   <span class="screenshot-app-title">NETSCOPE</span>
                   <button class="info-btn-right" aria-label="App Information">ⓘ</button>
                 </div>
-                
+
                 <div class="screenshot-screen-content">
                   <!-- Radar Card -->
                   <div class="radar-card-match">
                     <div class="radar-card-title">
                       <span class="radar-logo">◎</span> LIVE CELL RADAR MONITOR
                     </div>
-                    
+
                     <div class="radar-display">
                       <div class="radar-circle-outer">
                         <!-- Pulsing radar ripples -->
@@ -118,7 +128,7 @@
                         <div class="radar-ripple ripple-3"></div>
                         <!-- Rotating sweep arm -->
                         <div class="radar-sweep"></div>
-                        
+
                         <div class="radar-circle-inner">
                           <div class="radar-value" id="app-radar-value">-101</div>
                           <div class="radar-unit">dBm</div>
@@ -126,7 +136,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="radar-metrics-row">
                       <div class="radar-metric-col">
                         <div class="r-lbl">NETWORK</div>
@@ -144,9 +154,9 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="screenshot-section-label">PRIMARY SERVING CELL TELEMETRY</div>
-                  
+
                   <!-- Grid Cards -->
                   <div class="screenshot-telemetry-grid">
                     <!-- RSRP Card -->
@@ -161,7 +171,7 @@
                         <div class="c-progress-fill bg-critical" id="grid-rsrp-fill" style="width: 35%"></div>
                       </div>
                     </div>
-                    
+
                     <!-- RSRQ Card -->
                     <div class="telemetry-grid-card border-optimal">
                       <div class="card-top-row">
@@ -174,7 +184,7 @@
                         <div class="c-progress-fill bg-optimal" id="grid-rsrq-fill" style="width: 78%"></div>
                       </div>
                     </div>
-                    
+
                     <!-- SINR Card -->
                     <div class="telemetry-grid-card border-low">
                       <div class="card-top-row">
@@ -187,7 +197,7 @@
                         <div class="c-progress-fill bg-low" id="grid-sinr-fill" style="width: 45%"></div>
                       </div>
                     </div>
-                    
+
                     <!-- PCI Card -->
                     <div class="telemetry-grid-card border-pci">
                       <div class="card-top-row">
@@ -199,7 +209,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <!-- Bottom Tab Navigation Bar -->
                 <div class="screenshot-bottom-nav">
                   <div class="nav-tab">
@@ -235,14 +245,16 @@
       <div class="container">
         <div class="section-header text-center">
           <h2 class="section-title reveal">Engineered For Performance & Precision</h2>
-          <p class="section-subtitle reveal">A professional on-device monitoring system for developers, field engineers, and cellular network researchers.</p>
+          <p class="section-subtitle reveal">A professional on-device monitoring system for developers, field engineers,
+            and cellular network researchers.</p>
         </div>
-        
+
         <div class="features-grid">
           <!-- Card 1 -->
           <div class="feature-card glass reveal" style="--card-index: 0;">
             <div class="feature-icon icon-telemetry">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 22h14"></path>
                 <path d="M12 22V8"></path>
                 <path d="M12 8a4 4 0 0 1 4 4v4"></path>
@@ -253,12 +265,14 @@
               </svg>
             </div>
             <h3 class="feature-title">Real-Time RF Telemetry</h3>
-            <p class="feature-desc">Monitor RSRP, RSRQ, SINR, Physical Cell ID (PCI), Carrier, and serving radio access technologies instantly.</p>
+            <p class="feature-desc">Monitor RSRP, RSRQ, SINR, Physical Cell ID (PCI), Carrier, and serving radio access
+              technologies instantly.</p>
           </div>
           <!-- Card 2 -->
           <div class="feature-card glass reveal" style="--card-index: 1;">
             <div class="feature-icon icon-logging">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
                 <path d="M16 13a3 3 0 1 1-3-3"></path>
@@ -266,12 +280,14 @@
               </svg>
             </div>
             <h3 class="feature-title">Background Logging</h3>
-            <p class="feature-desc">Uninterruptible logger continues writing CSV records even if the screen turns off or you switch apps.</p>
+            <p class="feature-desc">Uninterruptible logger continues writing CSV records even if the screen turns off or
+              you switch apps.</p>
           </div>
           <!-- Card 3 -->
           <div class="feature-card glass reveal" style="--card-index: 2;">
             <div class="feature-icon icon-mapping">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                 <line x1="9" y1="3" x2="9" y2="18"></line>
                 <line x1="15" y1="6" x2="15" y2="21"></line>
@@ -280,12 +296,14 @@
               </svg>
             </div>
             <h3 class="feature-title">Dynamic Route Mapping</h3>
-            <p class="feature-desc">Plot and review geo-located signal telemetry directly on custom interactive maps for drive tests.</p>
+            <p class="feature-desc">Plot and review geo-located signal telemetry directly on custom interactive maps for
+              drive tests.</p>
           </div>
           <!-- Card 4 -->
           <div class="feature-card glass reveal" style="--card-index: 3;">
             <div class="feature-icon icon-benchmarks">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2a10 10 0 0 0-10 10v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a10 10 0 0 0-10-10z"></path>
                 <path d="M12 6v6"></path>
                 <circle cx="12" cy="12" r="1"></circle>
@@ -294,24 +312,28 @@
               </svg>
             </div>
             <h3 class="feature-title">Network Benchmarks</h3>
-            <p class="feature-desc">Evaluate speed, latency, jitter, and packet loss mapped directly alongside cellular hardware stats.</p>
+            <p class="feature-desc">Evaluate speed, latency, jitter, and packet loss mapped directly alongside cellular
+              hardware stats.</p>
           </div>
           <!-- Card 5 -->
           <div class="feature-card glass reveal" style="--card-index: 4;">
             <div class="feature-icon icon-export">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 <polyline points="12 11 12 17"></polyline>
                 <polyline points="9 14 12 11 15 14"></polyline>
               </svg>
             </div>
             <h3 class="feature-title">Local & Cloud Export</h3>
-            <p class="feature-desc">Save sessions locally as standard CSV files or sync automatically to your secure Supabase database.</p>
+            <p class="feature-desc">Save sessions locally as standard CSV files or sync automatically to your secure
+              Supabase database.</p>
           </div>
           <!-- Card 6 -->
           <div class="feature-card glass reveal" style="--card-index: 5;">
             <div class="feature-icon icon-extractor">
-              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="feat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="16 18 22 12 16 6"></polyline>
                 <polyline points="8 6 2 12 8 18"></polyline>
                 <line x1="12" y1="4" x2="12" y2="20"></line>
@@ -319,7 +341,8 @@
               </svg>
             </div>
             <h3 class="feature-title">Custom Extractor Plugin</h3>
-            <p class="feature-desc">Powered by our custom native C++ and Dart bindings for low-overhead cellular hardware interrogation.</p>
+            <p class="feature-desc">Powered by our custom native C++ and Dart bindings for low-overhead cellular
+              hardware interrogation.</p>
           </div>
         </div>
       </div>
@@ -330,8 +353,10 @@
       <div class="container telemetry-container">
         <div class="telemetry-content">
           <h2 class="section-title reveal">Interactive Telemetry Simulator</h2>
-          <p class="section-subtitle reveal">Experience how NetScope parses and evaluates signal parameters. Drag the simulator slider to simulate shifting radio frequency environments from high interference to direct sight-of-line signals.</p>
-          
+          <p class="section-subtitle reveal">Experience how NetScope parses and evaluates signal parameters. Drag the
+            simulator slider to simulate shifting radio frequency environments from high interference to direct
+            sight-of-line signals.</p>
+
           <div class="slider-wrapper reveal">
             <label for="signal-slider" class="slider-label">Simulate Signal Quality:</label>
             <input type="range" id="signal-slider" min="1" max="100" value="35" class="signal-range">
@@ -347,7 +372,8 @@
             <span class="summary-lbl">Signal Quality Index</span>
             <div class="summary-val-wrap">
               <span class="summary-badge poor" id="signal-badge">CRITICAL</span>
-              <span class="summary-desc" id="signal-description">Critical signal levels. Severe packet loss and coverage dropouts are expected.</span>
+              <span class="summary-desc" id="signal-description">Critical signal levels. Severe packet loss and coverage
+                dropouts are expected.</span>
             </div>
           </div>
         </div>
@@ -363,7 +389,7 @@
               </div>
               <span class="mac-title">NetScope Live Node Monitor</span>
             </div>
-            
+
             <div class="telemetry-dashboard">
               <div class="dash-header">
                 <div class="dash-title-wrap">
@@ -372,7 +398,7 @@
                 </div>
                 <span class="dash-carrier" id="telemetry-carrier">Jio 4G</span>
               </div>
-              
+
               <div class="telemetry-meters">
                 <!-- Metric RSRP -->
                 <div class="meter-card">
@@ -427,14 +453,15 @@
             <div class="speedometer-container">
               <svg class="speedometer" viewBox="0 0 200 200">
                 <circle class="gauge-bg" cx="100" cy="100" r="85"></circle>
-                <circle class="gauge-fill" id="speed-gauge-fill" cx="100" cy="100" r="85" stroke-dasharray="534" stroke-dashoffset="534"></circle>
+                <circle class="gauge-fill" id="speed-gauge-fill" cx="100" cy="100" r="85" stroke-dasharray="534"
+                  stroke-dashoffset="534"></circle>
               </svg>
               <div class="speed-value-display">
                 <span class="speed-number" id="speed-number">0.0</span>
                 <span class="speed-unit">Mbps</span>
               </div>
             </div>
-            
+
             <div class="speed-stats-grid">
               <div class="stat-box">
                 <span class="stat-name">Download</span>
@@ -460,11 +487,15 @@
 
         <div class="speed-content">
           <h2 class="section-title reveal">Network Performance Benchmarking</h2>
-          <p class="section-subtitle reveal">NetScope goes beyond raw signal listening. Test your real-world connection capability directly alongside RF metrics. Log your latency, download speed, and upload performance metrics correlated with signal variables at any given coordinates.</p>
+          <p class="section-subtitle reveal">NetScope goes beyond raw signal listening. Test your real-world connection
+            capability directly alongside RF metrics. Log your latency, download speed, and upload performance metrics
+            correlated with signal variables at any given coordinates.</p>
           <ul class="checkmark-list reveal">
             <li><strong>Ping & Jitter:</strong> Measure response consistency to verify connection stability.</li>
-            <li><strong>Dynamic Speed Tracking:</strong> Observe speeds scale with RSRP and carrier aggregation changes.</li>
-            <li><strong>Auto-Correlated Logs:</strong> Speeds are written with cellular parameter metadata in CSV rows.</li>
+            <li><strong>Dynamic Speed Tracking:</strong> Observe speeds scale with RSRP and carrier aggregation changes.
+            </li>
+            <li><strong>Auto-Correlated Logs:</strong> Speeds are written with cellular parameter metadata in CSV rows.
+            </li>
           </ul>
         </div>
       </div>
@@ -475,7 +506,8 @@
       <div class="container map-section-container">
         <div class="map-content">
           <h2 class="section-title reveal">Visual Drive Trails & Spatial Analytics</h2>
-          <p class="section-subtitle reveal">Map signals as you drive or walk. See signal drop-offs, tower handover points, and coverage dead zones with GPS coordinate plotting.</p>
+          <p class="section-subtitle reveal">Map signals as you drive or walk. See signal drop-offs, tower handover
+            points, and coverage dead zones with GPS coordinate plotting.</p>
           <div class="tab-container reveal">
             <button class="tab-btn active" data-target="info-map-points">Scatter Points</button>
             <button class="tab-btn" data-target="info-map-handover">Cell Handovers</button>
@@ -483,13 +515,18 @@
           </div>
           <div class="tab-content-wrapper reveal">
             <div class="tab-panel active" id="info-map-points">
-              <p>NetScope logs telemetry points with precise latitude and longitude. The app's integrated map automatically groups data and colors trail points depending on signal quality (Green = Great, Yellow = Fair, Red = Poor), providing immediate spatial analysis.</p>
+              <p>NetScope logs telemetry points with precise latitude and longitude. The app's integrated map
+                automatically groups data and colors trail points depending on signal quality (Green = Great, Yellow =
+                Fair, Red = Poor), providing immediate spatial analysis.</p>
             </div>
             <div class="tab-panel" id="info-map-handover">
-              <p>Trace physical tower switchovers. When your device changes serving Physical Cell Identifier (PCI) or splits across multiple carriers, the map flags the exact switch coordinates to highlight cells coverage edges.</p>
+              <p>Trace physical tower switchovers. When your device changes serving Physical Cell Identifier (PCI) or
+                splits across multiple carriers, the map flags the exact switch coordinates to highlight cells coverage
+                edges.</p>
             </div>
             <div class="tab-panel" id="info-map-elevation">
-              <p>Analyze how topography affects signal. Track elevation variables along your path to understand signal shading in valleys, behind buildings, and on elevated highways.</p>
+              <p>Analyze how topography affects signal. Track elevation variables along your path to understand signal
+                shading in valleys, behind buildings, and on elevated highways.</p>
             </div>
           </div>
         </div>
@@ -504,7 +541,8 @@
                 <span class="mac-dot maximize"></span>
               </div>
               <span class="mac-title">Route_22_A.csv</span>
-              <span class="map-legend"><span class="legend-dot green"></span> Excellent <span class="legend-dot yellow"></span> Good <span class="legend-dot red"></span> Poor</span>
+              <span class="map-legend"><span class="legend-dot green"></span> Excellent <span
+                  class="legend-dot yellow"></span> Good <span class="legend-dot red"></span> Poor</span>
             </div>
             <div class="map-canvas-container">
               <!-- SVG Mock Map with nodes -->
@@ -513,16 +551,24 @@
                 <path d="M 20,150 Q 150,50 380,150" class="map-road" id="map-drive-path" />
                 <path d="M 50,280 Q 220,180 350,20" class="map-road" />
                 <path d="M 120,20 L 280,280" class="map-road" />
-                
+
                 <!-- Telemetry Points Trail -->
-                <circle cx="34" cy="151" r="5" class="map-point red glow-red-sm" data-rsrp="-112 dBm" data-coord="40.712,-74.006"></circle>
-                <circle cx="68" cy="128" r="5" class="map-point yellow" data-rsrp="-98 dBm" data-coord="40.713,-74.005"></circle>
-                <circle cx="102" cy="108" r="5" class="map-point green" data-rsrp="-82 dBm" data-coord="40.714,-74.004"></circle>
-                <circle cx="140" cy="94" r="5" class="map-point green glow-green-sm" data-rsrp="-78 dBm" data-coord="40.715,-74.003"></circle>
-                <circle cx="180" cy="88" r="5" class="map-point green" data-rsrp="-80 dBm" data-coord="40.716,-74.002"></circle>
-                <circle cx="218" cy="90" r="5" class="map-point yellow" data-rsrp="-95 dBm" data-coord="40.717,-74.001"></circle>
-                <circle cx="258" cy="99" r="5" class="map-point red" data-rsrp="-114 dBm" data-coord="40.718,-74.000"></circle>
-                <circle cx="295" cy="113" r="5" class="map-point red" data-rsrp="-116 dBm" data-coord="40.719,-73.999"></circle>
+                <circle cx="34" cy="151" r="5" class="map-point red glow-red-sm" data-rsrp="-112 dBm"
+                  data-coord="40.712,-74.006"></circle>
+                <circle cx="68" cy="128" r="5" class="map-point yellow" data-rsrp="-98 dBm" data-coord="40.713,-74.005">
+                </circle>
+                <circle cx="102" cy="108" r="5" class="map-point green" data-rsrp="-82 dBm" data-coord="40.714,-74.004">
+                </circle>
+                <circle cx="140" cy="94" r="5" class="map-point green glow-green-sm" data-rsrp="-78 dBm"
+                  data-coord="40.715,-74.003"></circle>
+                <circle cx="180" cy="88" r="5" class="map-point green" data-rsrp="-80 dBm" data-coord="40.716,-74.002">
+                </circle>
+                <circle cx="218" cy="90" r="5" class="map-point yellow" data-rsrp="-95 dBm" data-coord="40.717,-74.001">
+                </circle>
+                <circle cx="258" cy="99" r="5" class="map-point red" data-rsrp="-114 dBm" data-coord="40.718,-74.000">
+                </circle>
+                <circle cx="295" cy="113" r="5" class="map-point red" data-rsrp="-116 dBm" data-coord="40.719,-73.999">
+                </circle>
 
                 <!-- Intersection trail -->
                 <circle cx="178" cy="148" r="5" class="map-point green" data-rsrp="-84 dBm"></circle>
@@ -534,8 +580,10 @@
                   <line x1="0" y1="25" x2="0" y2="0" stroke="#ff4655" stroke-width="2" />
                   <polygon points="0,0 -8,-10 8,-10" fill="#ff4655" />
                   <circle cx="0" cy="-5" r="2" fill="#fff" />
-                  <path d="M -15,-15 A 20,20 0 0,1 15,-15" fill="none" stroke="#ff4655" stroke-width="1.5" class="ping-wave wave-1" />
-                  <path d="M -25,-25 A 30,30 0 0,1 25,-25" fill="none" stroke="#ff4655" stroke-width="1" class="ping-wave wave-2" />
+                  <path d="M -15,-15 A 20,20 0 0,1 15,-15" fill="none" stroke="#ff4655" stroke-width="1.5"
+                    class="ping-wave wave-1" />
+                  <path d="M -25,-25 A 30,30 0 0,1 25,-25" fill="none" stroke="#ff4655" stroke-width="1"
+                    class="ping-wave wave-2" />
                 </g>
 
                 <!-- Animated Drive Vehicle Dot -->
@@ -557,8 +605,9 @@
       <div class="container integration-container">
         <div class="integration-content">
           <h2 class="section-title reveal">Advanced Data Logging Schema</h2>
-          <p class="section-subtitle reveal">NetScope formats logs to meet industrial standards. Review the standard CSV columns logged during each background recording session.</p>
-          
+          <p class="section-subtitle reveal">NetScope formats logs to meet industrial standards. Review the standard CSV
+            columns logged during each background recording session.</p>
+
           <!-- macOS Window styling for code box -->
           <div class="mac-window glass reveal">
             <div class="mac-header csv-header">
@@ -578,12 +627,14 @@
 1781262656704,Jio 4G,4G LTE,-106,-13,5,219,40.7132,-74.0056,13.1,25.1,8.9</code></pre>
           </div>
         </div>
-        
+
         <div class="supabase-card-wrap">
           <div class="supabase-sync-card glass reveal">
             <div class="supabase-badge">DATABASE SYNCHRONICITY</div>
             <h3>Direct Database Streams</h3>
-            <p>Stream your network telemetry directly into remote relational databases. Enable the Supabase config service, specify your project credentials, and stream live session entries directly into your secure tables as they are recorded.</p>
+            <p>Stream your network telemetry directly into remote relational databases. Enable the Supabase config
+              service, specify your project credentials, and stream live session entries directly into your secure
+              tables as they are recorded.</p>
             <div class="db-visual-animation">
               <div class="db-node node-local">NetScope App</div>
               <div class="sync-arrow-wrap">
@@ -602,9 +653,10 @@
       <div class="container download-container">
         <div class="section-header text-center">
           <h2 class="section-title reveal">Download NetScope App</h2>
-          <p class="section-subtitle reveal">Install the native background tracking utility directly on your Android device to log raw cell logs.</p>
+          <p class="section-subtitle reveal">Install the native background tracking utility directly on your Android
+            device to log raw cell logs.</p>
         </div>
-        
+
         <div class="download-grid">
           <!-- Left: Download Actions Card -->
           <div class="download-card feature-card glass reveal" style="--card-index: 0;">
@@ -613,11 +665,14 @@
             </div>
             <h3>NetScope Mobile</h3>
             <div class="version-tag">v1.2.0 • Release APK</div>
-            <p class="download-desc">Deploy the compiled production-ready package to your physical device. Run logs, speed tests, and map trails natively.</p>
-            
+            <p class="download-desc">Deploy the compiled production-ready package to your physical device. Run logs,
+              speed tests, and map trails natively.</p>
+
             <div class="download-actions">
-              <a href="https://github.com/GeekLuffy/NetScope/releases/download/v1.2.0/NetScope-v1.2.0.apk" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-download">
-                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="https://github.com/GeekLuffy/NetScope/releases/download/v1.2.0/NetScope-v1.2.0.apk"
+                target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-download">
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -636,35 +691,41 @@
                   <span class="req-badge">OS</span>
                   <strong>Android 5.0 (API Level 21) or Higher</strong>
                 </div>
-                <p>Fully compatible with Android 10 up to Android 14 (API Levels 29–34) using native Kotlin and Telephony APIs.</p>
+                <p>Fully compatible with Android 10 up to Android 14 (API Levels 29–34) using native Kotlin and
+                  Telephony APIs.</p>
               </li>
               <li>
                 <div class="req-title">
                   <span class="req-badge">Modem</span>
                   <strong>Physical Device & SIM Card Required</strong>
                 </div>
-                <p>Telemetry metrics cannot be simulated inside virtual emulators. Access to raw RSRP, RSRQ, SINR, and PCI parameters requires a physical modem (e.g. OnePlus, Samsung, Pixel) with an active SIM card.</p>
+                <p>Telemetry metrics cannot be simulated inside virtual emulators. Access to raw RSRP, RSRQ, SINR, and
+                  PCI parameters requires a physical modem (e.g. OnePlus, Samsung, Pixel) with an active SIM card.</p>
               </li>
               <li>
                 <div class="req-title">
                   <span class="req-badge">GPS</span>
                   <strong>Precise Location Services (GPS)</strong>
                 </div>
-                <p>Android restricts cell tower information queries to protect user location privacy. Location permission (ACCESS_FINE_LOCATION) must be set to "Allow all the time" or "Allow while using the app", and system GPS must be turned ON.</p>
+                <p>Android restricts cell tower information queries to protect user location privacy. Location
+                  permission (ACCESS_FINE_LOCATION) must be set to "Allow all the time" or "Allow while using the app",
+                  and system GPS must be turned ON.</p>
               </li>
               <li>
                 <div class="req-title">
                   <span class="req-badge">State</span>
                   <strong>Phone State Permissions</strong>
                 </div>
-                <p>Interrogating SIM and serving cell telemetry requires standard carrier/modem access (READ_PHONE_STATE). NetScope never reads contacts or personal logs.</p>
+                <p>Interrogating SIM and serving cell telemetry requires standard carrier/modem access
+                  (READ_PHONE_STATE). NetScope never reads contacts or personal logs.</p>
               </li>
               <li>
                 <div class="req-title">
                   <span class="req-badge">Service</span>
                   <strong>Foreground Service Support</strong>
                 </div>
-                <p>Background CSV recording sessions run inside a persistent foreground service. This prevents the OS from suspending the logger while the screen is off or in standby.</p>
+                <p>Background CSV recording sessions run inside a persistent foreground service. This prevents the OS
+                  from suspending the logger while the screen is off or in standby.</p>
               </li>
             </ul>
           </div>
@@ -677,48 +738,69 @@
       <div class="container container-privacy">
         <div class="section-header text-center">
           <h2 class="section-title reveal">Privacy Policy</h2>
-          <p class="section-subtitle reveal">Transparency and privacy are fundamental to NetScope. We do not gather, share, or sell your telemetry or coordinate details.</p>
+          <p class="section-subtitle reveal">Transparency and privacy are fundamental to NetScope. We do not gather,
+            share, or sell your telemetry or coordinate details.</p>
         </div>
-        
+
         <div class="privacy-box glass reveal">
           <div class="privacy-grid">
             <div class="privacy-column">
               <div class="privacy-section">
                 <h3>1. Local Data Processing Model</h3>
-                <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ, SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark measurements are processed, visualised, and written strictly to local storage files (CSV format) on your device. We do not maintain or connect to any cloud server by default, and we never collect, compile, or transmit your records.</p>
+                <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ,
+                  SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark
+                  measurements are processed, visualised, and written strictly to local storage files (CSV format) on
+                  your device. We do not maintain or connect to any cloud server by default, and we never collect,
+                  compile, or transmit your records.</p>
               </div>
-              
+
               <div class="privacy-section">
                 <h3>3. User-Configured Sync Options</h3>
-                <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly between your device and your private Supabase database using credentials you supply. NetScope does not act as an intermediary, does not store your Supabase keys, and has no visibility into your database logs.</p>
+                <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly
+                  between your device and your private Supabase database using credentials you supply. NetScope does not
+                  act as an intermediary, does not store your Supabase keys, and has no visibility into your database
+                  logs.</p>
               </div>
-              
+
               <div class="privacy-section">
                 <h3>5. Guaranteed Anonymity & Zero Tracking</h3>
-                <p>Every cellular parameter and location telemetry record captured by NetScope is completely anonymous. The app does not collect, link, or transmit any unique personal identifiers (such as IMEI, UUID, email, or device IDs) with the logged network variables, ensuring complete isolation between your metrics and identity.</p>
+                <p>Every cellular parameter and location telemetry record captured by NetScope is completely anonymous.
+                  The app does not collect, link, or transmit any unique personal identifiers (such as IMEI, UUID,
+                  email, or device IDs) with the logged network variables, ensuring complete isolation between your
+                  metrics and identity.</p>
               </div>
             </div>
-            
+
             <div class="privacy-column">
               <div class="privacy-section">
                 <h3>2. Permission Rationale</h3>
-                <p>To deliver its core utilities, NetScope requires specific Android or iOS hardware permissions, strictly utilized as follows:</p>
+                <p>To deliver its core utilities, NetScope requires specific Android or iOS hardware permissions,
+                  strictly utilized as follows:</p>
                 <ul class="privacy-list">
-                  <li><strong>Location Access (Precise/Fine GPS):</strong> Required to associate signal parameters with geographic coordinates and draw trails on the map views. Location data is stored purely locally on your device in your session CSV files.</li>
-                  <li><strong>Phone State Access:</strong> Required to extract raw hardware indicators from the active SIM cards (carrier name, network technology type, signal strengths, physical cell identifier PCI). NetScope never reads your contact list, device identifier numbers, or phone call history.</li>
-                  <li><strong>Notification Access:</strong> Used to run a persistent foreground service, allowing the background logging utility to write session data continuously when the screen is locked or when switching between active tasks.</li>
+                  <li><strong>Location Access (Precise/Fine GPS):</strong> Required to associate signal parameters with
+                    geographic coordinates and draw trails on the map views. Location data is stored purely locally on
+                    your device in your session CSV files.</li>
+                  <li><strong>Phone State Access:</strong> Required to extract raw hardware indicators from the active
+                    SIM cards (carrier name, network technology type, signal strengths, physical cell identifier PCI).
+                    NetScope never reads your contact list, device identifier numbers, or phone call history.</li>
+                  <li><strong>Notification Access:</strong> Used to run a persistent foreground service, allowing the
+                    background logging utility to write session data continuously when the screen is locked or when
+                    switching between active tasks.</li>
                 </ul>
               </div>
-              
+
               <div class="privacy-section">
                 <h3>4. Data Ownership & Deletion</h3>
-                <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local data folders and logs completely.</p>
+                <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV
+                  data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local
+                  data folders and logs completely.</p>
               </div>
             </div>
           </div>
-          
+
           <div class="privacy-section-footer">
-            For privacy inquiries or technical clarification regarding hardware metrics extraction, contact <a href="#developers" class="privacy-footer-link">the developers</a>.
+            For privacy inquiries or technical clarification regarding hardware metrics extraction, contact the <a
+              href="#developers" class="privacy-footer-link">developers</a>.
           </div>
         </div>
       </div>
@@ -729,9 +811,10 @@
       <div class="container developers-container">
         <div class="section-header text-center">
           <h2 class="section-title reveal">Meet the Developers</h2>
-          <p class="section-subtitle reveal">The engineering and UI design team behind NetScope's low-overhead cellular mapping utility.</p>
+          <p class="section-subtitle reveal">The engineering and UI design team behind NetScope's low-overhead cellular
+            mapping utility.</p>
         </div>
-        
+
         <div class="developers-grid">
           <!-- Developer 1: Mohammad Owais Naeem -->
           <div class="dev-card feature-card glass reveal" style="--card-index: 0;">
@@ -739,8 +822,10 @@
               <img src="assets/owais.jpg" alt="Mohammad Owais Naeem" class="dev-avatar-img">
             </div>
             <h3 class="dev-name">Mohammad Owais Naeem</h3>
-            <a href="https://www.linkedin.com/in/mohammad-owais-naeem/" target="_blank" rel="noopener noreferrer" class="dev-link">
-              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a href="https://www.linkedin.com/in/mohammad-owais-naeem/" target="_blank" rel="noopener noreferrer"
+              class="dev-link">
+              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
@@ -756,7 +841,8 @@
             </div>
             <h3 class="dev-name">Amar Sinha</h3>
             <a href="https://www.linkedin.com/in/amarcrj/" target="_blank" rel="noopener noreferrer" class="dev-link">
-              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
@@ -772,8 +858,11 @@
             </div>
             <h3 class="dev-name">Join the Team</h3>
             <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer" class="dev-link">
-              <svg class="github-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              <svg class="github-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                </path>
               </svg>
               <span>GitHub Repository</span>
             </a>
@@ -785,8 +874,10 @@
               <img src="assets/himanshu.jpg" alt="Himanshu Rathore" class="dev-avatar-img">
             </div>
             <h3 class="dev-name">Himanshu Rathore</h3>
-            <a href="https://www.linkedin.com/in/himanshu-rathore21/" target="_blank" rel="noopener noreferrer" class="dev-link">
-              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a href="https://www.linkedin.com/in/himanshu-rathore21/" target="_blank" rel="noopener noreferrer"
+              class="dev-link">
+              <svg class="linkedin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
@@ -831,14 +922,15 @@
     </div>
     <div class="footer-bottom">
       <div class="container footer-bottom-container">
-         <p>&copy; 2026 NetScope. Proprietary application utility.</p>
+        <p>&copy; 2026 NetScope. Proprietary application utility.</p>
       </div>
     </div>
   </footer>
 
   <!-- Back to Top Button -->
   <button id="back-to-top" class="back-to-top-btn" aria-label="Scroll back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" class="arrow-icon">
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
   </button>
@@ -846,4 +938,5 @@
   <!-- Scripts -->
   <script src="app.js"></script>
 </body>
+
 </html>
