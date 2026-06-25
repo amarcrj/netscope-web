@@ -1865,6 +1865,10 @@ h1, h2, h3, h4 {
     order: 1;
   }
   
+  .stat-item {
+    align-items: center;
+  }
+  
   .footer-container {
     flex-direction: column;
     gap: 2.5rem;
@@ -1888,7 +1892,7 @@ h1, h2, h3, h4 {
     top: 60px;
     left: 10px;
     right: 10px;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-dark-card);
     flex-direction: column;
     padding: 2rem;
     gap: 1.5rem;
@@ -2010,6 +2014,10 @@ h1, h2, h3, h4 {
 
   .container {
     padding: 0 1.5rem;
+  }
+
+  .download-card, .requirements-card {
+    padding: 2.2rem 1.6rem;
   }
 }
 
@@ -2138,6 +2146,33 @@ h1, h2, h3, h4 {
 
   .sync-badge {
     font-size: 0.5rem;
+  }
+
+  /* Telemetry dashboard meter labels stacking */
+  .meter-info {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  /* Download & Requirements sections responsive optimization */
+  .download-card, .requirements-card {
+    padding: 1.8rem 1.2rem;
+  }
+  .download-grid {
+    gap: 1.8rem;
+  }
+  .req-title {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Developer grid gaps and card padding optimization */
+  .developers-grid {
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .dev-card {
+    padding: 2rem 1.2rem;
   }
 }
 
