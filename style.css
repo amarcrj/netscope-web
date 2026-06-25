@@ -2019,6 +2019,31 @@ h1, h2, h3, h4 {
   .download-card, .requirements-card {
     padding: 2.2rem 1.6rem;
   }
+
+  /* Footer mobile optimization */
+  .footer-container {
+    text-align: center;
+    align-items: center;
+    gap: 3rem;
+  }
+  .footer-brand {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .footer-brand .logo {
+    justify-content: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    align-items: center;
+  }
+  .link-col {
+    text-align: center;
+    align-items: center;
+  }
 }
 
 @media (max-width: 480px) {
