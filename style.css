@@ -2587,3 +2587,215 @@ body.light-theme .dev-link:hover {
   color: var(--text-muted);
   margin-top: 0.1rem;
 }
+
+/* Clickable Developers Link in Privacy Policy */
+.privacy-footer-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px dashed var(--primary-glow);
+  transition: var(--transition-fast);
+}
+
+.privacy-footer-link:hover {
+  color: var(--primary-hover);
+  border-bottom: 1.5px solid var(--primary);
+}
+
+/* --- App Download & Technical Requirements --- */
+#download {
+  padding: 8rem 0;
+  border-top: 1px solid var(--border-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.download-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.3fr;
+  gap: 3rem;
+  margin-top: 4rem;
+  align-items: stretch;
+}
+
+.download-card, .requirements-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.download-card {
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2.5rem;
+  justify-content: center;
+  position: relative;
+}
+
+.app-icon-badge {
+  width: 90px;
+  height: 90px;
+  border-radius: 22px;
+  background: var(--bg-dark-accent);
+  border: 1.5px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.download-card:hover .app-icon-badge {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 25px var(--primary-glow);
+  border-color: var(--primary);
+}
+
+.download-app-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.download-card h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-header);
+}
+
+.version-tag {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-glow);
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  border: 1px solid rgba(130, 70, 240, 0.15);
+}
+
+.download-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 320px;
+}
+
+.download-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.download-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2px;
+}
+
+/* Requirements Card */
+.requirements-card {
+  padding: 3rem 2.5rem;
+  text-align: left;
+}
+
+.requirements-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-family: var(--font-header);
+  border-bottom: 1.5px solid var(--border-glass);
+  padding-bottom: 1rem;
+}
+
+.requirements-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.requirements-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.req-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.req-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--bg-dark-accent);
+  border: 1px solid var(--border-glass);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.requirements-list p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-left: 0;
+}
+
+/* Light Theme overrides for download */
+body.light-theme #download {
+  border-top-color: rgba(0, 0, 0, 0.04);
+}
+body.light-theme .app-icon-badge {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+body.light-theme .req-badge {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text-secondary);
+}
+
+/* responsive download section */
+@media (max-width: 992px) {
+  .download-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+}

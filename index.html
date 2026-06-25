@@ -596,6 +596,81 @@
       </div>
     </section>
 
+    <!-- App Download & Technical Requirements Section -->
+    <section id="download">
+      <div class="container download-container">
+        <div class="section-header text-center">
+          <h2 class="section-title reveal">Download NetScope App</h2>
+          <p class="section-subtitle reveal">Install the native background tracking utility directly on your Android device to log raw cell logs.</p>
+        </div>
+        
+        <div class="download-grid">
+          <!-- Left: Download Actions Card -->
+          <div class="download-card feature-card glass reveal" style="--card-index: 0;">
+            <div class="app-icon-badge">
+              <img src="assets/logo.png" alt="NetScope App Logo" class="download-app-logo">
+            </div>
+            <h3>NetScope Mobile</h3>
+            <div class="version-tag">v1.2.0 • Release APK</div>
+            <p class="download-desc">Deploy the compiled production-ready package to your physical device. Run logs, speed tests, and map trails natively.</p>
+            
+            <div class="download-actions">
+              <a href="https://github.com/GeekLuffy/NetScope/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-download">
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download APK (52.6 MB)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: Technical Requirements Card -->
+          <div class="requirements-card feature-card glass reveal" style="--card-index: 1;">
+            <h3>Technical Requirements & Guidelines</h3>
+            <ul class="requirements-list">
+              <li>
+                <div class="req-title">
+                  <span class="req-badge">OS</span>
+                  <strong>Android 5.0 (API Level 21) or Higher</strong>
+                </div>
+                <p>Fully compatible with Android 10 up to Android 14 (API Levels 29–34) using native Kotlin and Telephony APIs.</p>
+              </li>
+              <li>
+                <div class="req-title">
+                  <span class="req-badge">Modem</span>
+                  <strong>Physical Device & SIM Card Required</strong>
+                </div>
+                <p>Telemetry metrics cannot be simulated inside virtual emulators. Access to raw RSRP, RSRQ, SINR, and PCI parameters requires a physical modem (e.g. OnePlus, Samsung, Pixel) with an active SIM card.</p>
+              </li>
+              <li>
+                <div class="req-title">
+                  <span class="req-badge">GPS</span>
+                  <strong>Precise Location Services (GPS)</strong>
+                </div>
+                <p>Android restricts cell tower information queries to protect user location privacy. Location permission (ACCESS_FINE_LOCATION) must be set to "Allow all the time" or "Allow while using the app", and system GPS must be turned ON.</p>
+              </li>
+              <li>
+                <div class="req-title">
+                  <span class="req-badge">State</span>
+                  <strong>Phone State Permissions</strong>
+                </div>
+                <p>Interrogating SIM and serving cell telemetry requires standard carrier/modem access (READ_PHONE_STATE). NetScope never reads contacts or personal logs.</p>
+              </li>
+              <li>
+                <div class="req-title">
+                  <span class="req-badge">Service</span>
+                  <strong>Foreground Service Support</strong>
+                </div>
+                <p>Background CSV recording sessions run inside a persistent foreground service. This prevents the OS from suspending the logger while the screen is off or in standby.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Privacy Policy Section -->
     <section id="privacy">
       <div class="container container-privacy">
@@ -642,7 +717,7 @@
           </div>
           
           <div class="privacy-section-footer">
-            For privacy inquiries or technical clarification regarding hardware metrics extraction, contact the developers.
+            For privacy inquiries or technical clarification regarding hardware metrics extraction, contact <a href="#developers" class="privacy-footer-link">the developers</a>.
           </div>
         </div>
       </div>
@@ -749,7 +824,7 @@
           <h4>Contact Info</h4>
           <a href="mailto:support@netscope.dev">support@netscope.dev</a>
           <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer">GitHub Support</a>
-          <span class="footer-contact-text">Roorkee, Uttarakhand, India</span>
+          <a href="tel:+919635212075" class="footer-contact-link">+91 96352 12075</a>
         </div>
       </div>
     </div>
