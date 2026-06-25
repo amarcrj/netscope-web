@@ -2421,6 +2421,10 @@ body.light-theme .back-to-top-btn:hover {
   box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.25);
 }
 .dev-card:nth-child(3):hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15px 35px -10px rgba(255, 255, 255, 0.08);
+}
+.dev-card:nth-child(4):hover {
   border-color: rgba(5, 150, 105, 0.4);
   box-shadow: 0 15px 35px -10px rgba(5, 150, 105, 0.25);
 }
@@ -2454,7 +2458,29 @@ body.light-theme .back-to-top-btn:hover {
   border-color: rgba(2, 132, 199, 0.25);
 }
 
-.dev-card:nth-child(3) .dev-avatar-img {
+/* 3rd child is the Join the Team avatar icon */
+.dev-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+.dev-card:hover .dev-avatar-placeholder {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+.dev-card:nth-child(4) .dev-avatar-img {
   box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
   border-color: rgba(5, 150, 105, 0.25);
 }
@@ -2527,7 +2553,17 @@ body.light-theme .dev-card:nth-child(1) .dev-avatar-img {
 body.light-theme .dev-card:nth-child(2) .dev-avatar-img {
   box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
 }
-body.light-theme .dev-card:nth-child(3) .dev-avatar-img {
+body.light-theme .dev-avatar-placeholder {
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--text-muted);
+}
+body.light-theme .dev-card:hover .dev-avatar-placeholder {
+  border-color: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-primary);
+}
+body.light-theme .dev-card:nth-child(4) .dev-avatar-img {
   box-shadow: 0 0 15px rgba(5, 150, 105, 0.15);
 }
 
@@ -2544,3 +2580,10 @@ body.light-theme .dev-link:hover {
 }
 
 /* Revision: 2026-06-24 */
+
+/* 8. Footer Contact Text */
+.footer-contact-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
