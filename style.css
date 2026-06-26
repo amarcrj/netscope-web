@@ -1873,6 +1873,11 @@ h1, h2, h3, h4 {
     flex-direction: column;
     gap: 2.5rem;
   }
+
+  .developers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2194,6 +2199,7 @@ h1, h2, h3, h4 {
 
   /* Developer grid gaps and card padding optimization */
   .developers-grid {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2.5rem;
   }
@@ -2456,7 +2462,7 @@ body.light-theme .back-to-top-btn:hover {
 
 .developers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.5rem;
   margin-top: 4rem;
 }
