@@ -331,6 +331,8 @@ h1, h2, h3, h4 {
   font-family: var(--font-header);
   font-size: 1.3rem;
   font-weight: 800;
+  text-decoration: none;
+  color: inherit;
 }
 
 .logo-img {
@@ -2052,7 +2054,7 @@ h1, h2, h3, h4 {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
   /* Shrink phone mockup further for very small screens (iPhone SE, etc.) */
   :root {
     --phone-scale: 0.72;
@@ -2468,6 +2470,8 @@ body.light-theme .back-to-top-btn:hover {
 }
 
 .dev-card {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 3rem 2.2rem 2.8rem 2.2rem;
