@@ -742,19 +742,25 @@
             share, or sell your telemetry or coordinate details.</p>
         </div>
 
-        <div class="privacy-box glass reveal">
-          <div class="privacy-grid">
-            <div class="privacy-section">
-              <h3>1. Local Data Processing Model</h3>
+        <div class="privacy-stack">
+          <!-- Card 1 -->
+          <div class="privacy-card glass reveal" style="--card-index: 0;">
+            <div class="privacy-badge badge-purple">01</div>
+            <div class="privacy-content">
+              <h3>Local Data Processing Model</h3>
               <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ,
                 SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark
                 measurements are processed, visualised, and written strictly to local storage files (CSV format) on
                 your device. We do not maintain or connect to any cloud server by default, and we never collect,
                 compile, or transmit your records.</p>
             </div>
+          </div>
 
-            <div class="privacy-section">
-              <h3>2. Permission Rationale</h3>
+          <!-- Card 2 -->
+          <div class="privacy-card glass reveal" style="--card-index: 1;">
+            <div class="privacy-badge badge-cyan">02</div>
+            <div class="privacy-content">
+              <h3>Permission Rationale</h3>
               <p>To deliver its core utilities, NetScope requires specific Android or iOS hardware permissions,
                 strictly utilized as follows:</p>
               <ul class="privacy-list">
@@ -769,35 +775,47 @@
                   switching between active tasks.</li>
               </ul>
             </div>
+          </div>
 
-            <div class="privacy-section">
-              <h3>3. User-Configured Sync Options</h3>
+          <!-- Card 3 -->
+          <div class="privacy-card glass reveal" style="--card-index: 2;">
+            <div class="privacy-badge badge-yellow">03</div>
+            <div class="privacy-content">
+              <h3>User-Configured Sync Options</h3>
               <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly
                 between your device and your private Supabase database using credentials you supply. NetScope does not
                 act as an intermediary, does not store your Supabase keys, and has no visibility into your database
                 logs.</p>
             </div>
+          </div>
 
-            <div class="privacy-section">
-              <h3>4. Data Ownership & Deletion</h3>
+          <!-- Card 4 -->
+          <div class="privacy-card glass reveal" style="--card-index: 3;">
+            <div class="privacy-badge badge-red">04</div>
+            <div class="privacy-content">
+              <h3>Data Ownership & Deletion</h3>
               <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV
                 data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local
                 data folders and logs completely.</p>
             </div>
+          </div>
 
-            <div class="privacy-section">
-              <h3>5. Guaranteed Anonymity & Zero Tracking</h3>
+          <!-- Card 5 -->
+          <div class="privacy-card glass reveal" style="--card-index: 4;">
+            <div class="privacy-badge badge-green">05</div>
+            <div class="privacy-content">
+              <h3>Guaranteed Anonymity & Zero Tracking</h3>
               <p>Every cellular parameter and location telemetry record captured by NetScope is completely anonymous.
                 The app does not collect, link, or transmit any unique personal identifiers (such as IMEI, UUID,
                 email, or device IDs) with the logged network variables, ensuring complete isolation between your
                 metrics and identity.</p>
             </div>
           </div>
+        </div>
 
-          <div class="privacy-section-footer">
-            For privacy inquiries or technical clarification regarding hardware metrics extraction, contact the <a
-              href="#developers" class="privacy-footer-link">developers</a>.
-          </div>
+        <div class="privacy-section-footer text-center reveal">
+          For privacy inquiries or technical clarification regarding hardware metrics extraction, contact the <a
+            href="#developers" class="privacy-footer-link">developers</a>.
         </div>
       </div>
     </section>
