@@ -1877,7 +1877,6 @@ h1, h2, h3, h4 {
   }
 
   .developers-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
 }
@@ -2201,7 +2200,6 @@ h1, h2, h3, h4 {
 
   /* Developer grid gaps and card padding optimization */
   .developers-grid {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2.5rem;
   }
@@ -2464,7 +2462,7 @@ body.light-theme .back-to-top-btn:hover {
 
 .developers-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 2.5rem;
   margin-top: 4rem;
 }
