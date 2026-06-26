@@ -1664,15 +1664,9 @@ h1, h2, h3, h4 {
 }
 
 .privacy-grid {
-  display: flex;
-  gap: 3rem;
-}
-
-.privacy-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 3rem;
 }
 
 .privacy-section h3 {
@@ -1997,7 +1991,7 @@ h1, h2, h3, h4 {
   }
 
   .privacy-grid {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 
