@@ -824,7 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // --- Animated Drive Test Vehicle & Telemetry Synchronization ---
+  // --- Animated Realtime Mobility Test Vehicle & Telemetry Synchronization ---
   const drivePath = document.getElementById('map-drive-path');
   const driveVehicle = document.getElementById('drive-vehicle');
   
