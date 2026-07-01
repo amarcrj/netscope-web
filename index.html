@@ -265,8 +265,7 @@
               </svg>
             </div>
             <h3 class="feature-title">Real-Time RF Telemetry</h3>
-            <p class="feature-desc">Monitor RSRP, RSRQ, SINR, Physical Cell ID (PCI), Carrier, and serving radio access
-              technologies instantly.</p>
+            <p class="feature-desc">Monitor RSRP, RSRQ, SINR, PCI, Carrier, RAT, and live NR-ARFCN frequencies alongside neighbor Tracking Area Codes (TAC).</p>
           </div>
           <!-- Card 2 -->
           <div class="feature-card glass reveal" style="--card-index: 1;">
@@ -279,9 +278,8 @@
                 <path d="M12 10h1v3"></path>
               </svg>
             </div>
-            <h3 class="feature-title">Background Logging</h3>
-            <p class="feature-desc">Uninterruptible logger continues writing CSV records even if the screen turns off or
-              you switch apps.</p>
+            <h3 class="feature-title">Event-Driven Logging</h3>
+            <p class="feature-desc">Uninterruptible background logging writes session CSVs. Automatically detects and logs radio events like handovers, reselections, and link failures.</p>
           </div>
           <!-- Card 3 -->
           <div class="feature-card glass reveal" style="--card-index: 2;">
@@ -619,12 +617,12 @@
               <span class="mac-title">network_logs_1781262652704.csv</span>
               <button class="btn-copy" id="btn-copy-csv" aria-label="Copy CSV header content">Copy Header</button>
             </div>
-            <pre class="code-block"><code id="csv-code-block">timestamp,carrier,network_type,rsrp,rsrq,sinr,pci,lat,lng,elev,speed_down_mbps,speed_up_mbps
-1781262652704,Jio 4G,4G LTE,-101,-11,8,219,40.7128,-74.0060,12.4,45.2,12.8
-1781262653704,Jio 4G,4G LTE,-101,-11,8,219,40.7129,-74.0059,12.5,44.9,12.1
-1781262654704,Jio 4G,4G LTE,-102,-12,7,219,40.7130,-74.0058,12.7,40.4,11.3
-1781262655704,Jio 4G,4G LTE,-104,-12,6,219,40.7131,-74.0057,12.9,32.8,10.2
-1781262656704,Jio 4G,4G LTE,-106,-13,5,219,40.7132,-74.0056,13.1,25.1,8.9</code></pre>
+            <pre class="code-block"><code id="csv-code-block">timestamp,carrier,network_type,rsrp,rsrq,sinr,pci,lat,lng,elev,speed_down_mbps,speed_up_mbps,ue_event,n1_nr_arfcn
+1781262652704,Jio 4G,4G LTE,-101,-11,8,219,40.7128,-74.0060,12.4,45.2,12.8,,
+1781262653704,Jio 4G,4G LTE,-101,-11,8,219,40.7129,-74.0059,12.5,44.9,12.1,,
+1781262654704,Jio 5G,5G NR,-78,-10,25,112,40.7130,-74.0058,12.7,210.4,32.3,NET_CHANGE:4G LTE→5G NR,630720
+1781262655704,Jio 5G,5G NR,-76,-9,26,112,40.7131,-74.0057,12.9,245.8,38.2,,630720
+1781262656704,Jio 5G,5G NR,-75,-9,28,114,40.7132,-74.0056,13.1,280.1,42.5,HANDOVER:PCI112→PCI114,630720</code></pre>
           </div>
         </div>
 
