@@ -2542,8 +2542,9 @@ body.light-theme .back-to-top-btn:hover {
 }
 
 .developers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2.5rem;
   margin-top: 4rem;
 }
@@ -2555,6 +2556,8 @@ body.light-theme .back-to-top-btn:hover {
   text-align: center;
   padding: 3rem 2.2rem 2.8rem 2.2rem;
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 280px;
+  max-width: 320px;
 }
 
 .dev-card:hover {
@@ -2571,10 +2574,6 @@ body.light-theme .back-to-top-btn:hover {
   box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.25);
 }
 .dev-card:nth-child(3):hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 15px 35px -10px rgba(255, 255, 255, 0.08);
-}
-.dev-card:nth-child(4):hover {
   border-color: rgba(5, 150, 105, 0.4);
   box-shadow: 0 15px 35px -10px rgba(5, 150, 105, 0.25);
 }
@@ -2630,7 +2629,7 @@ body.light-theme .back-to-top-btn:hover {
   transform: scale(1.05);
 }
 
-.dev-card:nth-child(4) .dev-avatar-img {
+.dev-card:nth-child(3) .dev-avatar-img {
   box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
   border-color: rgba(5, 150, 105, 0.25);
 }
@@ -2713,7 +2712,7 @@ body.light-theme .dev-card:hover .dev-avatar-placeholder {
   background: rgba(0, 0, 0, 0.04);
   color: var(--text-primary);
 }
-body.light-theme .dev-card:nth-child(4) .dev-avatar-img {
+body.light-theme .dev-card:nth-child(3) .dev-avatar-img {
   box-shadow: 0 0 15px rgba(5, 150, 105, 0.15);
 }
 
