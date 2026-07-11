@@ -2566,12 +2566,12 @@ body.light-theme .back-to-top-btn:hover {
 
 /* Hover glow states for specific dev card indices */
 .dev-card:nth-child(1):hover {
-  border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 0 15px 35px -10px rgba(139, 92, 246, 0.25);
-}
-.dev-card:nth-child(2):hover {
   border-color: rgba(2, 132, 199, 0.4);
   box-shadow: 0 15px 35px -10px rgba(2, 132, 199, 0.25);
+}
+.dev-card:nth-child(2):hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(139, 92, 246, 0.25);
 }
 .dev-card:nth-child(3):hover {
   border-color: rgba(5, 150, 105, 0.4);
@@ -2598,13 +2598,13 @@ body.light-theme .back-to-top-btn:hover {
 
 /* Custom avatar glows */
 .dev-card:nth-child(1) .dev-avatar-img {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
+  border-color: rgba(2, 132, 199, 0.25);
 }
 
 .dev-card:nth-child(2) .dev-avatar-img {
-  box-shadow: 0 0 20px rgba(2, 132, 199, 0.3);
-  border-color: rgba(2, 132, 199, 0.25);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.25);
 }
 
 /* 3rd child is the Join the Team avatar icon */
@@ -2697,10 +2697,10 @@ body.light-theme .dev-avatar-img {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 body.light-theme .dev-card:nth-child(1) .dev-avatar-img {
-  box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
+  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
 }
 body.light-theme .dev-card:nth-child(2) .dev-avatar-img {
-  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
 }
 body.light-theme .dev-avatar-placeholder {
   border-color: rgba(0, 0, 0, 0.15);
