@@ -923,15 +923,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Dynamic Spotlight & Border Glow Overlay (MagicBento Integration) ---
+  // --- Dynamic Spotlight, Border Glow, 3D Tilt & Ripple Click (MagicBento Integration) ---
   const interactiveCards = document.querySelectorAll(
     '.feature-card, .requirements-card, .dev-card, .privacy-card, .download-card, .supabase-sync-card'
   );
   
+  // Cache card rects to prevent layout thrashing on global mousemove
+  let cardRects = [];
+  function updateCardRects() {
+    cardRects = Array.from(interactiveCards).map(card => ({
+      element: card,
+      rect: card.getBoundingClientRect()
+    }));
+  }
+  
+  // Initial calculation
+  updateCardRects();
+  
+  // Update cache on scroll or resize
+  window.addEventListener('resize', updateCardRects, { passive: true });
+  window.addEventListener('scroll', updateCardRects, { passive: true });
+  
+  // Listen to coordinates globally for smooth border highlights across card boundaries
+  window.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    for (let i = 0; i < cardRects.length; i++) {
+      const item = cardRects[i];
+      const x = mouseX - item.rect.left;
+      const y = mouseY - item.rect.top;
+      item.element.style.setProperty('--mouse-x', `${x}px`);
+      item.element.style.setProperty('--mouse-y', `${y}px`);
+    }
+  }, { passive: true });
+
   interactiveCards.forEach(card => {
-    // Ensure relative positioning context
+    // Ensure relative positioning context and transform transitions
     card.style.position = 'relative';
     card.style.overflow = 'hidden';
+    card.style.transition = 'transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease';
     
     // Create spotlight overlay
     const spotlight = document.createElement('div');
@@ -945,13 +976,40 @@ document.addEventListener('DOMContentLoaded', () => {
     card.appendChild(spotlight);
     card.appendChild(borderGlow);
     
-    // Listen to local cursor coordinates on mousemove
+    // Apply 3D perspective tilt on local mousemove
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    // Reset transform on mouseleave
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+    
+    // Create ripple effect on click
+    card.addEventListener('click', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const ripple = document.createElement('span');
+      ripple.className = 'card-ripple';
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      card.appendChild(ripple);
+      setTimeout(() => {
+        ripple.remove();
+      }, 800);
     });
   });
 });

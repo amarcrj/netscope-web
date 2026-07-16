@@ -3176,3 +3176,22 @@ body.light-theme .border-glow {
   );
 }
 
+/* Click Ripple effect */
+.card-ripple {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--border-glow-color, rgba(139, 92, 246, 0.3));
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(80);
+    opacity: 0;
+  }
+}
