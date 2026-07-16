@@ -2993,3 +2993,186 @@ body.light-theme .req-badge {
     margin-top: 3rem;
   }
 }
+
+/* --- Spotlight & Border Glow Overlay (MagicBento Integration) --- */
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--glow-color, rgba(255, 255, 255, 0.05)),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.border-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--border-glow-color, rgba(255, 255, 255, 0.15)),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+/* Make sure inner text content sits above the absolute overlays */
+.feature-card > *,
+.requirements-card > *,
+.dev-card > *,
+.privacy-card > *,
+.download-card > *,
+.supabase-sync-card > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Override overlays back to bottom layer */
+.feature-card > .spotlight-overlay,
+.requirements-card > .spotlight-overlay,
+.dev-card > .spotlight-overlay,
+.privacy-card > .spotlight-overlay,
+.download-card > .spotlight-overlay,
+.supabase-sync-card > .spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.feature-card > .border-glow,
+.requirements-card > .border-glow,
+.dev-card > .border-glow,
+.privacy-card > .border-glow,
+.download-card > .border-glow,
+.supabase-sync-card > .border-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* Show overlays on hover */
+.feature-card:hover .spotlight-overlay,
+.requirements-card:hover .spotlight-overlay,
+.dev-card:hover .spotlight-overlay,
+.privacy-card:hover .spotlight-overlay,
+.download-card:hover .spotlight-overlay,
+.supabase-sync-card:hover .spotlight-overlay {
+  opacity: 1;
+}
+
+.feature-card:hover .border-glow,
+.requirements-card:hover .border-glow,
+.dev-card:hover .border-glow,
+.privacy-card:hover .border-glow,
+.download-card:hover .border-glow,
+.supabase-sync-card:hover .border-glow {
+  opacity: 1;
+}
+
+/* --- Themed Spotlight & Border Colors --- */
+
+/* Feature Cards Glows */
+.feature-card:nth-child(1) {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+.feature-card:nth-child(2) {
+  --glow-color: rgba(2, 132, 199, 0.08);
+  --border-glow-color: rgba(2, 132, 199, 0.4);
+}
+.feature-card:nth-child(3) {
+  --glow-color: rgba(5, 150, 105, 0.08);
+  --border-glow-color: rgba(5, 150, 105, 0.4);
+}
+.feature-card:nth-child(4) {
+  --glow-color: rgba(225, 29, 72, 0.08);
+  --border-glow-color: rgba(225, 29, 72, 0.4);
+}
+.feature-card:nth-child(5) {
+  --glow-color: rgba(168, 85, 247, 0.08);
+  --border-glow-color: rgba(168, 85, 247, 0.4);
+}
+.feature-card:nth-child(6) {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Privacy Cards Glows */
+.privacy-card:nth-child(1) {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+.privacy-card:nth-child(2) {
+  --glow-color: rgba(14, 165, 233, 0.08);
+  --border-glow-color: rgba(14, 165, 233, 0.4);
+}
+.privacy-card:nth-child(3) {
+  --glow-color: rgba(34, 197, 94, 0.08);
+  --border-glow-color: rgba(34, 197, 94, 0.4);
+}
+.privacy-card:nth-child(4) {
+  --glow-color: rgba(249, 115, 22, 0.08);
+  --border-glow-color: rgba(249, 115, 22, 0.4);
+}
+.privacy-card:nth-child(5) {
+  --glow-color: rgba(217, 70, 239, 0.08);
+  --border-glow-color: rgba(217, 70, 239, 0.4);
+}
+
+/* Developer Cards Glows */
+.dev-card:nth-child(1) {
+  --glow-color: rgba(2, 132, 199, 0.08);
+  --border-glow-color: rgba(2, 132, 199, 0.4);
+}
+.dev-card:nth-child(2) {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+.dev-card:nth-child(3) {
+  --glow-color: rgba(5, 150, 105, 0.08);
+  --border-glow-color: rgba(5, 150, 105, 0.4);
+}
+
+/* Download, Requirements & Supabase Cards Glows */
+.download-card {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+.requirements-card {
+  --glow-color: rgba(139, 92, 246, 0.08);
+  --border-glow-color: rgba(139, 92, 246, 0.4);
+}
+.supabase-sync-card {
+  --glow-color: rgba(5, 150, 105, 0.08);
+  --border-glow-color: rgba(5, 150, 105, 0.4);
+}
+
+/* Light Theme tweaks to lower glare */
+body.light-theme .spotlight-overlay {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--glow-color, rgba(0, 0, 0, 0.02)),
+    transparent 80%
+  );
+}
+body.light-theme .border-glow {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--border-glow-color, rgba(0, 0, 0, 0.06)),
+    transparent 40%
+  );
+}
+

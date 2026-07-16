@@ -922,4 +922,36 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --- Dynamic Spotlight & Border Glow Overlay (MagicBento Integration) ---
+  const interactiveCards = document.querySelectorAll(
+    '.feature-card, .requirements-card, .dev-card, .privacy-card, .download-card, .supabase-sync-card'
+  );
+  
+  interactiveCards.forEach(card => {
+    // Ensure relative positioning context
+    card.style.position = 'relative';
+    card.style.overflow = 'hidden';
+    
+    // Create spotlight overlay
+    const spotlight = document.createElement('div');
+    spotlight.className = 'spotlight-overlay';
+    
+    // Create border glow overlay
+    const borderGlow = document.createElement('div');
+    borderGlow.className = 'border-glow';
+    
+    // Append to card DOM
+    card.appendChild(spotlight);
+    card.appendChild(borderGlow);
+    
+    // Listen to local cursor coordinates on mousemove
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
 });
