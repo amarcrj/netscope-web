@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <meta name="description"
+    content="NetScope Privacy Policy - Learn how NetScope protects your telemetry, GPS data, and user account privacy.">
+  <meta name="author" content="NetScope Team">
+  <meta property="og:title" content="NetScope - Privacy Policy">
+  <meta property="og:description"
+    content="Transparency and privacy are fundamental to NetScope. We do not gather, share, or sell your telemetry or coordinate details.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://netscope.amarsinha.in/privacy.html">
+  <meta property="og:image" content="https://netscope.amarsinha.in/assets/logo.png">
+
+  <link rel="canonical" href="https://netscope.amarsinha.in/privacy.html">
+
+  <title>Privacy Policy | NetScope</title>
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .subpage-hero {
+      padding: 7rem 0 3rem;
+      text-align: center;
+    }
+    .privacy-header-meta {
+      margin: 1.5rem 0 2rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient background glow blobs -->
+  <div class="bg-glow-blob blob-1" aria-hidden="true"></div>
+  <div class="bg-glow-blob blob-2" aria-hidden="true"></div>
+  <div class="bg-glow-blob blob-3" aria-hidden="true"></div>
+
+  <!-- Header / Floating Glassmorphism Pill Navigation -->
+  <header id="site-header">
+    <div class="container header-container">
+      <nav id="main-nav" class="nav-pill glass" aria-label="Main Navigation">
+        <a href="index.html" class="logo">
+          <img src="assets/logo.png" alt="NetScope App Icon" class="logo-img">
+          <span class="logo-text">NetScope</span>
+        </a>
+        <div class="nav-links-wrapper">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="index.html#features" class="nav-link">Features</a>
+          <a href="index.html#download" class="nav-link">Get App</a>
+          <a href="privacy.html" class="nav-link active">Privacy Policy</a>
+          <a href="delete-account.html" class="nav-link">Delete Account</a>
+        </div>
+        <div class="nav-right">
+          <button id="theme-toggle-btn" class="theme-toggle-nav" aria-label="Toggle light/dark color theme">🌓</button>
+          <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="subpage-hero">
+      <div class="container">
+        <div class="badge">Official Legal &amp; Data Policy</div>
+        <h1 class="section-title">Privacy Policy</h1>
+        <p class="section-subtitle">
+          Transparency and user privacy are foundational to NetScope. We do not gather, share, or monetize your cellular telemetry, GPS coordinates, or personal records.
+        </p>
+        <div class="privacy-header-meta">
+          <span>Effective Date: September 2026</span> • <span>App Package: com.example.netscope</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Stack Section -->
+    <section id="privacy-content-section">
+      <div class="container container-privacy">
+        <div class="privacy-stack">
+
+          <!-- Card 1 -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-purple">01</div>
+            <div class="privacy-content">
+              <h3>Local Data Processing Model</h3>
+              <p>NetScope is engineered on an on-device architecture. All cellular signal parameters (RSRP, RSRQ,
+                SINR, PCI, Carrier, Network Type), GPS logs (latitude, longitude, elevation), and speed benchmark
+                measurements are processed, visualised, and written strictly to local storage files (CSV format) on
+                your device. We do not maintain or connect to any cloud server by default, and we never collect,
+                compile, or transmit your records.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-cyan">02</div>
+            <div class="privacy-content">
+              <h3>Permission Rationale</h3>
+              <p>To deliver its core utilities, NetScope requires specific Android hardware permissions,
+                strictly utilized as follows:</p>
+              <ul class="privacy-list">
+                <li><strong>Location Access (Precise/Fine GPS):</strong> Required to associate signal parameters with
+                  geographic coordinates and draw trails on the map views. Location data is stored purely locally on
+                  your device in your session CSV files.</li>
+                <li><strong>Phone State Access:</strong> Required to extract raw hardware indicators from the active
+                  SIM cards (carrier name, network technology type, signal strengths, physical cell identifier PCI).
+                  NetScope never reads your contact list, device identifier numbers, or phone call history.</li>
+                <li><strong>Notification Access:</strong> Used to run a persistent foreground service, allowing the
+                  background logging utility to write session data continuously when the screen is locked or when
+                  switching between active tasks.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-yellow">03</div>
+            <div class="privacy-content">
+              <h3>User-Configured Cloud Sync Options</h3>
+              <p>NetScope provides an optional synchronization pipeline to Supabase. This sync operates directly
+                between your device and your private Supabase database using credentials you supply. NetScope does not
+                act as an intermediary, does not store your Supabase keys, and has no visibility into your database
+                logs.</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-red">04</div>
+            <div class="privacy-content">
+              <h3>Data Ownership &amp; Local Deletion</h3>
+              <p>You have full ownership of your records. You can view, export, or permanently purge any logged CSV
+                data directly within the file log history tab of the app UI. Uninstalling NetScope deletes all local
+                data folders and logs completely.</p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-green">05</div>
+            <div class="privacy-content">
+              <h3>Guaranteed Anonymity &amp; Zero Tracking</h3>
+              <p>Every cellular parameter and location telemetry record captured by NetScope is completely anonymous.
+                The app does not collect, link, or transmit any unique personal identifiers (such as IMEI, UUID,
+                email, or device IDs) with the logged network variables, ensuring complete isolation between your
+                metrics and identity.</p>
+            </div>
+          </div>
+
+          <!-- Card 6: Account & Data Deletion (Google Play Compliance Anchor) -->
+          <div class="privacy-card glass" id="account-and-data-deletion">
+            <div class="privacy-badge badge-purple">06</div>
+            <div class="privacy-content">
+              <h3>Account &amp; Telemetry Data Deletion Policy</h3>
+              <p>
+                In compliance with Google Play Data Safety requirements, NetScope provides clear, accessible methods for
+                users to delete their authentication accounts (Email, Google, GitHub) and any synced cloud telemetry:
+              </p>
+              <ul class="privacy-list">
+                <li><strong>In-App Deletion:</strong> Tap the Info (ⓘ) button in the app header and tap Sign Out / Revoke Session.</li>
+                <li><strong>Web &amp; Email Deletion Request:</strong> You can submit a deletion request without the app installed by emailing <a href="mailto:support@netscope.dev?subject=%5BNetScope%5D%20Account%20%26%20Data%20Deletion%20Request"><strong>support@netscope.dev</strong></a>. Requests are completed within 7 business days.</li>
+                <li><strong>Data Scope:</strong> Account credentials and remote database records are permanently purged. Offline CSV files stay on your handset until you uninstall the app.</li>
+              </ul>
+              <p style="margin-top: 1rem;">
+                For comprehensive step-by-step instructions, visit our dedicated <a href="delete-account.html" style="color: var(--primary); text-decoration: underline; font-weight: 600;">Account &amp; Data Deletion Page</a>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="privacy-section-footer text-center" style="margin: 3.5rem 0;">
+          For privacy inquiries or technical clarification regarding hardware metrics extraction, contact the developers at <a href="mailto:support@netscope.dev" class="privacy-footer-link">support@netscope.dev</a>.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="assets/logo.png" alt="NetScope App Icon" class="logo-img" loading="lazy">
+          <span class="logo-text">NetScope</span>
+        </div>
+        <p>Advanced real-time cellular signal monitor and tracking database utility.</p>
+        <div class="footer-socials">
+          <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/amarcrj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="mailto:support@netscope.dev" aria-label="Email" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>Application</h4>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#telemetry">Live Telemetry</a>
+          <a href="index.html#speed-test">Speed Benchmark</a>
+        </div>
+        <div class="link-col">
+          <h4>Privacy &amp; Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="delete-account.html">Account &amp; Data Deletion</a>
+        </div>
+        <div class="link-col">
+          <h4>Contact Info</h4>
+          <a href="mailto:support@netscope.dev">support@netscope.dev</a>
+          <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer">GitHub Support</a>
+          <a href="tel:+919635212075" class="footer-contact-link">+91 96352 12075</a>
+          <a href="https://maps.google.com/?q=IIIT+Naya+Raipur" target="_blank" rel="noopener noreferrer" class="footer-address-link">IIIT Naya Raipur</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p>&copy; 2026 NetScope. Proprietary application utility.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>

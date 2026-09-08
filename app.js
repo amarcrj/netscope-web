@@ -38,10 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- High-Performance 3D Scrollable Network Background Canvas ---
   const canvas = document.getElementById('network-canvas');
-  const ctx = canvas.getContext('2d');
-  
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
   
   const nodes = [];
   const maxNodes = Math.min(65, Math.floor((width * height) / 20000)); // Optimal node density
@@ -196,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (isCanvasRunning) render();
+  }
 
 
   // --- 3D Interactive Device Tilt (Enlarged phone, smoother movement) ---

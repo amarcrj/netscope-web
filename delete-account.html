@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <meta name="description"
+    content="NetScope - User Account & Telemetry Data Deletion Instructions. Learn how to request permanent deletion of your NetScope account and cloud telemetry data.">
+  <meta name="author" content="NetScope Team">
+  <meta property="og:title" content="NetScope - Account & Telemetry Data Deletion">
+  <meta property="og:description"
+    content="Step-by-step instructions on how users can request their NetScope account and cloud telemetry data to be deleted.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://netscope.amarsinha.in/delete-account.html">
+  <meta property="og:image" content="https://netscope.amarsinha.in/assets/logo.png">
+
+  <link rel="canonical" href="https://netscope.amarsinha.in/delete-account.html">
+
+  <title>Account & Data Deletion | NetScope</title>
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .subpage-hero {
+      padding: 7rem 0 3rem;
+      text-align: center;
+    }
+    .deletion-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin: 2.5rem 0 3.5rem;
+    }
+    .deletion-meta-card {
+      padding: 1.5rem;
+      border-radius: 16px;
+      text-align: left;
+    }
+    .deletion-meta-card .meta-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .deletion-meta-card .meta-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .deletion-steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0 0;
+      counter-reset: step-counter;
+    }
+    .deletion-steps-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .deletion-steps-list li::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .action-cta-box {
+      margin: 3.5rem 0;
+      padding: 2.5rem;
+      text-align: center;
+      border-radius: 20px;
+    }
+    .action-cta-box h3 {
+      font-family: var(--font-header);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    .action-cta-box p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+    }
+    .cta-button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient background glow blobs -->
+  <div class="bg-glow-blob blob-1" aria-hidden="true"></div>
+  <div class="bg-glow-blob blob-2" aria-hidden="true"></div>
+  <div class="bg-glow-blob blob-3" aria-hidden="true"></div>
+
+  <!-- Header / Floating Glassmorphism Pill Navigation -->
+  <header id="site-header">
+    <div class="container header-container">
+      <nav id="main-nav" class="nav-pill glass" aria-label="Main Navigation">
+        <a href="index.html" class="logo">
+          <img src="assets/logo.png" alt="NetScope App Icon" class="logo-img">
+          <span class="logo-text">NetScope</span>
+        </a>
+        <div class="nav-links-wrapper">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="index.html#features" class="nav-link">Features</a>
+          <a href="index.html#download" class="nav-link">Get App</a>
+          <a href="privacy.html" class="nav-link">Privacy Policy</a>
+          <a href="delete-account.html" class="nav-link active">Delete Account</a>
+        </div>
+        <div class="nav-right">
+          <button id="theme-toggle-btn" class="theme-toggle-nav" aria-label="Toggle light/dark color theme">🌓</button>
+          <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="subpage-hero">
+      <div class="container">
+        <div class="badge">Google Play Data Safety Compliance</div>
+        <h1 class="section-title">Account & Telemetry Data Deletion</h1>
+        <p class="section-subtitle">
+          NetScope respects user privacy and data ownership. This page outlines our official policies and provides
+          step-by-step instructions for deleting your authentication account and any associated cloud telemetry data.
+        </p>
+
+        <!-- Quick Facts Meta Grid -->
+        <div class="deletion-meta-grid">
+          <div class="deletion-meta-card glass">
+            <div class="meta-label">Application Name</div>
+            <div class="meta-value">NetScope</div>
+          </div>
+          <div class="deletion-meta-card glass">
+            <div class="meta-label">Package Identifier</div>
+            <div class="meta-value">com.example.netscope</div>
+          </div>
+          <div class="deletion-meta-card glass">
+            <div class="meta-label">Auth System</div>
+            <div class="meta-value">Supabase (Email, Google, GitHub)</div>
+          </div>
+          <div class="deletion-meta-card glass">
+            <div class="meta-label">Turnaround Time</div>
+            <div class="meta-value">Within 7 Business Days</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Deletion Guide -->
+    <section id="account-and-data-deletion">
+      <div class="container container-privacy">
+        <div class="privacy-stack">
+
+          <!-- Card 1: In-App Deletion -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-purple">01</div>
+            <div class="privacy-content">
+              <h3>Method 1: Direct In-App Account Deletion</h3>
+              <p>
+                If you currently have the NetScope application installed on your Android device and have active access,
+                you can trigger account sign-out and session revocation directly:
+              </p>
+              <ol class="deletion-steps-list">
+                <li>Launch the <strong>NetScope</strong> app on your Android handset.</li>
+                <li>Tap the <strong>Info / Settings (ⓘ)</strong> icon located in the top-right corner of the application navigation bar.</li>
+                <li>Tap the <strong>Sign Out / Disconnect</strong> button (<svg style="display:inline-block; vertical-align:middle; width:16px; height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>).</li>
+                <li>Confirm your request. Your OAuth / password session token is invalidated immediately on your device and across Supabase authentication servers.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Card 2: Web & Email Deletion -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-cyan">02</div>
+            <div class="privacy-content">
+              <h3>Method 2: Web / Email Deletion Request (Without Device Access)</h3>
+              <p>
+                In compliance with Google Play Developer Policy, you do not need to have the app installed or have active device access to request permanent deletion of your account and records.
+              </p>
+              <ol class="deletion-steps-list">
+                <li>Compose an email to our official developer support inbox: <a href="mailto:support@netscope.dev?subject=%5BNetScope%5D%20Account%20%26%20Data%20Deletion%20Request"><strong>support@netscope.dev</strong></a>.</li>
+                <li>Set the Subject Line as: <code>[NetScope] Account &amp; Data Deletion Request</code>.</li>
+                <li>Send the request from the email address registered with NetScope, or specify the exact Email / Google / GitHub identity associated with your account.</li>
+                <li>Our engineering team will confirm your request and execute complete database purging within <strong>7 business days</strong>. You will receive an email confirmation once completed.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Card 3: What Data is Deleted -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-yellow">03</div>
+            <div class="privacy-content">
+              <h3>What Data is Permanently Deleted</h3>
+              <p>When an account deletion request is processed, the following items are permanently wiped from production systems:</p>
+              <ul class="checkmark-list" style="margin-top: 1rem;">
+                <li><strong>Authentication Account:</strong> Your Supabase user identity record, email address, password hash, and OAuth authentication tokens (Google / GitHub).</li>
+                <li><strong>Cloud Telemetry Records:</strong> Any cell signal metrics (RSRP, RSRQ, SINR, PCI, EARFCN, network type) uploaded to the remote <code>telemetry_records</code> database table associated with your <code>user_id</code>.</li>
+                <li><strong>UE Radio Events:</strong> Any radio handover, reselection, or radio link failure events synced to the remote <code>ue_events</code> table linked to your account.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Card 4: Local Offline Storage & Retention -->
+          <div class="privacy-card glass">
+            <div class="privacy-badge badge-red">04</div>
+            <div class="privacy-content">
+              <h3>Data Retention & Offline Handset Storage</h3>
+              <p>
+                NetScope operates on a strict local-first architecture:
+              </p>
+              <ul class="privacy-list" style="margin-top: 1rem;">
+                <li><strong>Local CSV Files:</strong> Cellular telemetry logs and benchmark records saved offline in CSV format are stored solely on your device's internal storage (<code>/Android/data/com.example.netscope/files/</code>). NetScope does not upload or retain copies of your local CSV files on any server unless you explicitly enable cloud sync. You can delete these files anytime in the app's Log History screen or by uninstalling the application.</li>
+                <li><strong>No Financial / Personal Data:</strong> NetScope does not collect payment details, credit cards, government IDs, address books, or contacts.</li>
+                <li><strong>Backup Purge Window:</strong> Encrypted automated database backups are completely overwritten and purged within <strong>30 days</strong> of deletion.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Action Call-to-Action Box -->
+        <div class="action-cta-box glass">
+          <h3>Ready to Submit a Deletion Request?</h3>
+          <p>
+            You can generate a pre-filled email request directly from your browser. Our development team will process your request promptly.
+          </p>
+          <div class="cta-button-group">
+            <a href="mailto:support@netscope.dev?subject=%5BNetScope%5D%20Account%20%26%20Data%20Deletion%20Request&body=Hello%20NetScope%20Support%20Team%2C%0A%0APlease%20permanently%20delete%20my%20NetScope%20account%20and%20all%20associated%20cloud%20telemetry%20records.%0A%0AMy%20Registered%20Email%20%2F%20OAuth%20Account%3A%20%5BInsert%20your%20email%20here%5D%0AApp%20Package%3A%20com.example.netscope%0A%0AThank%20you."
+              class="btn btn-primary">
+              <svg style="width:18px; height:18px; margin-right:8px; vertical-align:middle;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>Send Deletion Email</span>
+            </a>
+            <a href="privacy.html" class="btn btn-outline">
+              <span>View Privacy Policy</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="logo">
+          <img src="assets/logo.png" alt="NetScope App Icon" class="logo-img" loading="lazy">
+          <span class="logo-text">NetScope</span>
+        </div>
+        <p>Advanced real-time cellular signal monitor and tracking database utility.</p>
+        <div class="footer-socials">
+          <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/amarcrj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="mailto:support@netscope.dev" aria-label="Email" class="social-icon-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>Application</h4>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#telemetry">Live Telemetry</a>
+          <a href="index.html#speed-test">Speed Benchmark</a>
+        </div>
+        <div class="link-col">
+          <h4>Privacy &amp; Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="delete-account.html">Account &amp; Data Deletion</a>
+        </div>
+        <div class="link-col">
+          <h4>Contact Info</h4>
+          <a href="mailto:support@netscope.dev">support@netscope.dev</a>
+          <a href="https://github.com/GeekLuffy/NetScope" target="_blank" rel="noopener noreferrer">GitHub Support</a>
+          <a href="tel:+919635212075" class="footer-contact-link">+91 96352 12075</a>
+          <a href="https://maps.google.com/?q=IIIT+Naya+Raipur" target="_blank" rel="noopener noreferrer" class="footer-address-link">IIIT Naya Raipur</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p>&copy; 2026 NetScope. Proprietary application utility.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>
